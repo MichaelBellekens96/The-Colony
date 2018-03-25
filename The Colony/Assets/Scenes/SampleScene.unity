@@ -197,8 +197,9 @@ GameObject:
   - component: {fileID: 462399549}
   - component: {fileID: 462399548}
   - component: {fileID: 462399547}
-  - component: {fileID: 462399551}
   - component: {fileID: 462399552}
+  - component: {fileID: 462399551}
+  - component: {fileID: 462399553}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -289,7 +290,6 @@ MonoBehaviour:
   sprintSpeed: 10
   rotationSpeed: 5
   jumpForce: 10
-  raycastLength: 0.55
   isGrounded: 0
   cameraRotation: 0
 --- !u!54 &462399552
@@ -307,6 +307,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &462399553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 462399546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29488435b9799f3439b44eb375097339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Hunger: 100
+  HungerRate: 1
 --- !u!1 &966996867
 GameObject:
   m_ObjectHideFlags: 0
