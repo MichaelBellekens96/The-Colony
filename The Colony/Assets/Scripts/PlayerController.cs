@@ -22,11 +22,13 @@ public class PlayerController : MonoBehaviour {
     private const string JUMP = "Jump";
 
     private Camera playerCamera;
+    private PlayerStats playerStats;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
+        playerStats = GetComponent<PlayerStats>();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +38,13 @@ public class PlayerController : MonoBehaviour {
 
         Move();
         MouseLook();
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            playerStats.Heal(5f);
+            Debug.Log("Healed player with 5");
+        }
+        
     }
 
     private void Move()

@@ -4,24 +4,92 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
 
-    public float Health = 100f;
-    public float Hunger = 100f;
-    public float HungerRate = 0.5f;
+    [SerializeField]
+    private float health = 100;
+    public float Health
+    {
+        get { return health; }
+        set {
+            if (value > 100) health = 100;
+            else if (value < 0) health = 0;
+            else health = value;
+        }
+    }
+    [SerializeField]
+    private float hunger = 100;
+    public float Hunger
+    {
+        get { return hunger; }
+        set
+        {
+            if (value > 100) hunger = 100;
+            else if (value < 0) hunger = 0;
+            else hunger = value;
+        }
+    }
+    [SerializeField]
+    private float thirst = 100f;
+    public float Thirst
+    {
+        get { return thirst; }
+        set
+        {
+            if (value > 100f) thirst = 100;
+            if (value < 0) thirst = 0;
+            else thirst = value;
+        }
+    }
+    [SerializeField]
+    private float oxygen = 100f;
+    public float Oxygen
+    {
+        get { return oxygen; }
+        set
+        {
+            if (value > 100f) oxygen = 100;
+            else if (value < 0) oxygen = 0;
+            else oxygen = value;
+        }
+    }
+    [SerializeField]
+    private float sleep = 100f;
+    public float Sleep
+    {
+        get { return sleep; }
+        set
+        {
+            if (value > 100f) sleep = 100;
+            else if (value < 0) sleep = 0;
+            else sleep = value;
+        }
+    }
+
+    public float hungerRate = 5f; //0.5 
+    public float thirstRate = 5f; //0.5
+    public float oxygenRate = 10f;//2
+    public float sleepRate = 10f;//1
+
+    [SerializeField]
+    private float totalDamage = 0;
 
     private PlayerController controller;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
-        InvokeRepeating("DecreaseHunger", 5f, 5f);
+        InvokeRepeating("LoopAllStats", 5, 5);
+    }
+
+    public void Heal(float _extraHealth)
+    {
+        Hunger += _extraHealth;
     }
 
     public void Damage(float _damage)
     {
         Health -= _damage;
-        if (Health < 0 || Health == 0)
+        if (Health == 0)
         {
-            Health = 0;
             Die();
         }
     }
@@ -31,26 +99,59 @@ public class PlayerStats : MonoBehaviour {
         Debug.Log("You died :'(");
     }
 
-    public void Heal(float _extraHealth)
+    private void LoopAllStats()
     {
-        Health += _extraHealth;
-        if (Health > 100)
-        {
-            Health = 100f;
-        }
+        totalDamage = 0;
+
+        DecreaseHunger();
+        DecreaseThirst();
+        DecreaseOxygen();
+        DecreaseSleep();
+
+        Damage(totalDamage);
     }
 
     private void DecreaseHunger()
     {
-        Hunger -= HungerRate;
-        if (Hunger < 0 || Hunger == 0)
+        Hunger -= hungerRate;
+        if (Hunger == 0)
         {
-            Hunger = 0;
-            Damage(5f);
+            totalDamage += 5f;
         }
         /*if (Hunger < 80f)
         {
             controller.walkSpeed = 2f;
         }*/
+    }
+
+    private void DecreaseThirst()
+    {
+        Thirst -= thirstRate;
+        if (Thirst == 0)
+        {
+            totalDamage += 10f;
+        }
+        /*if (Thirst < 80f)
+        {
+            controller.walkSpeed = 2f;
+        }*/
+    }
+
+    private void DecreaseOxygen()
+    {
+        Oxygen -= oxygenRate;
+        if (Oxygen == 0)
+        {
+            totalDamage += 10f;
+        }
+    }
+
+    private void DecreaseSleep()
+    {
+        Sleep -= sleepRate;
+        if (Sleep == 0)
+        {
+            Debug.Log("Falling asleep...");
+        }
     }
 }
