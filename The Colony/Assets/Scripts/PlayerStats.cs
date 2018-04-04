@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
 
+    [Header("Player Stats")]
     [SerializeField]
     private float health = 100;
     public float Health
@@ -64,12 +65,12 @@ public class PlayerStats : MonoBehaviour {
         }
     }
 
+    [Header("Decrease Rates")]
     public float hungerRate = 5f; //0.5 
     public float thirstRate = 5f; //0.5
     public float oxygenRate = 10f;//2
     public float sleepRate = 10f;//1
 
-    [SerializeField]
     private float totalDamage = 0;
 
     private PlayerController controller;
