@@ -7,13 +7,18 @@ public class PlayerController : MonoBehaviour {
     [Header("Movement")]
     public float walkSpeed = 5f;
     public float sprintSpeed = 10f;
-    public float jumpForce = 10f;
+    public float jumpForce = 5f;
     public bool isGrounded;
 
     [Header("Rotation")]
     public float x_Sensitivity = 5f;
     public float y_Sensitivity = 5f;
 
+    [Header("Interactable")]
+    public bool grabbingAnObject;
+    public GameObject grabbedObject;
+
+    private GameObject hitGameObject;
     private float speed;
 
     private const string H_AXIS = "Horizontal";
@@ -28,6 +33,8 @@ public class PlayerController : MonoBehaviour {
     private float h_Axis;
     private bool l_Shift;
     private bool jump;
+    private bool actionKey;
+    private bool dropObject;
 
     private Rigidbody rb;
     private Camera playerCamera;
@@ -48,7 +55,8 @@ public class PlayerController : MonoBehaviour {
         h_Axis = Input.GetAxis(H_AXIS);
         l_Shift = Input.GetKey(KeyCode.LeftShift);
         jump = Input.GetButton(JUMP);
-
+        actionKey = Input.GetKey(KeyCode.F);
+        dropObject = Input.GetKeyDown(KeyCode.Escape);
         LookRotation(transform, playerCamera.transform);
 
         #region TestingCode
@@ -64,6 +72,8 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate()
     {
         Move();
+        if (actionKey) OnActionKey();
+        if (dropObject) DropObject();
     }
 
     private void Move()
@@ -99,6 +109,43 @@ public class PlayerController : MonoBehaviour {
         return q;
     }
 
+    private void OnActionKey()
+    {
+        RaycastHit hit;
+        
+        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5f, Color.yellow);
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f))
+        {
+            string tag = hit.transform.gameObject.tag;
+            hitGameObject = hit.transform.gameObject;
+
+            switch (tag)
+            {
+                case "ResourceBox":
+                    GrabObject(hitGameObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void GrabObject(GameObject box)
+    {
+        grabbedObject = box;
+        Destroy(box.GetComponent<Rigidbody>());
+        box.gameObject.transform.parent = gameObject.transform;
+        box.transform.localPosition = new Vector3(0, 0, 1);
+        box.transform.localRotation = Quaternion.identity;
+        grabbingAnObject = true;
+    }
+
+    private void DropObject()
+    {
+        grabbedObject.transform.parent = null;
+        grabbedObject.AddComponent<Rigidbody>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         isGrounded = collision.gameObject.layer == 9 ? true : false;
@@ -107,5 +154,21 @@ public class PlayerController : MonoBehaviour {
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = collision.gameObject.layer == 9 ? false : true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Base")
+        {
+            rb.drag = 1;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Base")
+        {
+            rb.drag = 0.2f;
+        }
     }
 }
