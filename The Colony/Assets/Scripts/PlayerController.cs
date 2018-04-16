@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public float sprintSpeed = 10f;
     public float jumpForce = 5f;
     public bool isGrounded;
+    public bool freezed;
 
     [Header("Rotation")]
     public float x_Sensitivity = 5f;
@@ -35,16 +36,21 @@ public class PlayerController : MonoBehaviour {
     private bool jump;
     private bool actionKey;
     private bool dropObject;
+    private bool buildMenu;
 
     private Rigidbody rb;
     private Camera playerCamera;
     private PlayerStats playerStats;
+    public BuildingPlacement build;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
         playerStats = GetComponent<PlayerStats>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 	}
 	
 	// Update is called once per frame
@@ -57,8 +63,13 @@ public class PlayerController : MonoBehaviour {
         jump = Input.GetButton(JUMP);
         actionKey = Input.GetKey(KeyCode.F);
         dropObject = Input.GetKeyDown(KeyCode.Escape);
-        LookRotation(transform, playerCamera.transform);
+        buildMenu = Input.GetKeyDown(KeyCode.B);
 
+        if (!freezed)
+        {
+            LookRotation(transform, playerCamera.transform);
+        }
+        
         #region TestingCode
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -71,9 +82,14 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        Move();
+        if (!freezed)
+        {
+            Move();    
+        }
+        
         if (actionKey) OnActionKey();
         if (dropObject) DropObject();
+        if (buildMenu) build.ToggleBuildMenu();
     }
 
     private void Move()
