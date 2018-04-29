@@ -15,6 +15,6 @@ public class ResourceBox : MonoBehaviour {
         resourceValue = data.value;
         lid.GetComponent<Renderer>().material.color = data.color;
 
-        data.PrintData();
+        //data.PrintData();
 	}
 }

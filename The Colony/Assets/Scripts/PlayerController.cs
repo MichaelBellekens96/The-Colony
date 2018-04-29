@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : InputManager {
 
     [Header("Movement")]
     public float walkSpeed = 5f;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject hitGameObject;
     private float speed;
 
-    private const string H_AXIS = "Horizontal";
+    /*private const string H_AXIS = "Horizontal";
     private const string V_AXIS = "Vertical";
     private const string MOUSE_X = "Mouse X";
     private const string MOUSE_Y = "Mouse Y";
@@ -36,12 +36,13 @@ public class PlayerController : MonoBehaviour {
     private bool jump;
     private bool actionKey;
     private bool dropObject;
-    private bool buildMenu;
+    private bool buildMenu;*/
 
     private Rigidbody rb;
     private Camera playerCamera;
     private PlayerStats playerStats;
     public BuildingPlacement build;
+    //public InputManager input;
 
     // Use this for initialization
     void Start () {
@@ -49,13 +50,15 @@ public class PlayerController : MonoBehaviour {
         playerCamera = GetComponentInChildren<Camera>();
         playerStats = GetComponent<PlayerStats>();
 
+        playerCamera.enabled = true;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        x_AxisMouse = Input.GetAxis(MOUSE_X);
+        /*x_AxisMouse = Input.GetAxis(MOUSE_X);
         y_AxisMouse = Input.GetAxis(MOUSE_Y);
         v_Axis = Input.GetAxis(V_AXIS);
         h_Axis = Input.GetAxis(H_AXIS);
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour {
         jump = Input.GetButton(JUMP);
         actionKey = Input.GetKey(KeyCode.F);
         dropObject = Input.GetKeyDown(KeyCode.Escape);
-        buildMenu = Input.GetKeyDown(KeyCode.B);
+        buildMenu = Input.GetKeyDown(KeyCode.B);*/
 
         if (!freezed)
         {
@@ -87,8 +90,8 @@ public class PlayerController : MonoBehaviour {
             Move();    
         }
         
-        if (actionKey) OnActionKey();
-        if (dropObject) DropObject();
+        if (interact) OnActionKey();
+        if (cancel) DropObject();
         if (buildMenu) build.ToggleBuildMenu();
     }
 
