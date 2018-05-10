@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Base
   - ResourceBox
+  - Metal Ore
+  - Contruction Site
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - PostProcessing
   - Terrain
   - Props
-  - 
+  - Base
   - 
   - 
   - 

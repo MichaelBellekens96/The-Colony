@@ -9,6 +9,6 @@ public class ParticleExamples {
 	[TextArea]
 	public string description;
 	public bool isWeaponEffect;
-	public GameObject particleSystemGO;
+	public UnityEngine.GameObject particleSystemGO;
 	public Vector3 particlePosition, particleRotation;
 }

@@ -11,13 +11,13 @@ public class GunShoot : MonoBehaviour {
 	public ParticleSystem muzzleFlash;
 	public ParticleSystem cartridgeEjection;
 
-	public GameObject metalHitEffect;
-	public GameObject sandHitEffect;
-	public GameObject stoneHitEffect;
-	public GameObject waterLeakEffect;
-    public GameObject waterLeakExtinguishEffect;
-	public GameObject[] fleshHitEffects;
-	public GameObject woodHitEffect;
+	public UnityEngine.GameObject metalHitEffect;
+	public UnityEngine.GameObject sandHitEffect;
+	public UnityEngine.GameObject stoneHitEffect;
+	public UnityEngine.GameObject waterLeakEffect;
+    public UnityEngine.GameObject waterLeakExtinguishEffect;
+	public UnityEngine.GameObject[] fleshHitEffects;
+	public UnityEngine.GameObject woodHitEffect;
 
 	private float nextFire;												// Float to store the time the player will be allowed to fire again, after firing
 	private Animator anim;
@@ -85,9 +85,9 @@ public class GunShoot : MonoBehaviour {
 		}
 	}
 
-	void SpawnDecal(RaycastHit hit, GameObject prefab)
+	void SpawnDecal(RaycastHit hit, UnityEngine.GameObject prefab)
 	{
-		GameObject spawnedDecal = GameObject.Instantiate(prefab, hit.point, Quaternion.LookRotation(hit.normal));
+        UnityEngine.GameObject spawnedDecal = UnityEngine.GameObject.Instantiate(prefab, hit.point, Quaternion.LookRotation(hit.normal));
 		spawnedDecal.transform.SetParent(hit.collider.transform);
 	}
 }

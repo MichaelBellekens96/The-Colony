@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BuildingPlacement" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AISAAAIAACAIIAAAQAABBAAAAQCgAAAAAABCICAiAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingPlacement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionDetector" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBAAAAAAgAAAAAAAAABAAAAAAAAAIKAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CollisionDetector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZCAAAAASAAgAAAAAAAAAAAUAAAACAAABAQAAABLAA=</HashCode>
+      <FileName>Assets\Scripts\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIwgAAUAMqAABAAEAAQAAABAAAAAEcgsQJAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerStats" Collapsed="true">
+    <Position X="2.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAICACQASAQAAGgAAAAAAAoAACAIAAAoAABACACAJg=</HashCode>
+      <FileName>Assets\Scripts\PlayerStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBox" Collapsed="true">
+    <Position X="6" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceData" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAIAAAAAAgABAAACCAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

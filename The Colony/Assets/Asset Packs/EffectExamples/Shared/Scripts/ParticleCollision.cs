@@ -19,7 +19,7 @@ public class ParticleCollision : MonoBehaviour
     }
 
 
-    private void OnParticleCollision(GameObject other)
+    private void OnParticleCollision(UnityEngine.GameObject other)
     {
         int numCollisionEvents = m_ParticleSystem.GetCollisionEvents(other, m_CollisionEvents);
         for (int i = 0; i < numCollisionEvents; ++i)

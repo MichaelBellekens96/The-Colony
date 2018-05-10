@@ -9,13 +9,13 @@ public class ParticleMenu : MonoBehaviour {
 	public ParticleExamples[] particleSystems;
 
 	// the gun GameObject
-	public GameObject gunGameObject;
+	public UnityEngine.GameObject gunGameObject;
 
 	// a private integer to store the current position in the array
 	private int currentIndex;
 
 	// the currently shown prefab game object
-	private GameObject currentGO;
+	private UnityEngine.GameObject currentGO;
 
 	// where to spawn prefabs 
 	public Transform spawnLocation;
@@ -43,8 +43,8 @@ public class ParticleMenu : MonoBehaviour {
 		if(currentGO != null)
 			Destroy (currentGO);
 
-		// ..spawn the relevant game object based on the array of potential game objects, according to the current index (position in the array)
-		currentGO = Instantiate (particleSystems[currentIndex].particleSystemGO, spawnLocation.position + particleSystems[currentIndex].particlePosition, Quaternion.Euler(particleSystems[currentIndex].particleRotation)) as GameObject;
+        // ..spawn the relevant game object based on the array of potential game objects, according to the current index (position in the array)
+        currentGO = Instantiate(particleSystems[currentIndex].particleSystemGO, spawnLocation.position + particleSystems[currentIndex].particlePosition, Quaternion.Euler(particleSystems[currentIndex].particleRotation)) as UnityEngine.GameObject;
 
 		// only activate the gun GameObject if the current effect is a weapon effect
 		gunGameObject.SetActive (particleSystems[currentIndex].isWeaponEffect);
