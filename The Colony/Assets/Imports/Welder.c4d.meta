@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 5d62a8c9fe3aeb14fb3667143aa7d097
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Cap_1
+    100002: Cap_1_2
+    100004: Cap_2
+    100006: Cap_2_2
+    100008: GasBottle
+    100010: GasBottleConnector
+    100012: GasHolder
+    100014: Sweep
+    100016: Sweep_1
+    100018: Trigger
+    100020: //RootNode
+    100022: Welder_2
+    400000: Cap_1
+    400002: Cap_1_2
+    400004: Cap_2
+    400006: Cap_2_2
+    400008: GasBottle
+    400010: GasBottleConnector
+    400012: GasHolder
+    400014: Sweep
+    400016: Sweep_1
+    400018: Trigger
+    400020: //RootNode
+    400022: Welder_2
+    2100000: Trigger
+    2100002: Metal
+    2100004: Welder
+    2100006: GasBottle
+    2300000: Cap_1
+    2300002: Cap_1_2
+    2300004: Cap_2
+    2300006: Cap_2_2
+    2300008: GasBottle
+    2300010: GasBottleConnector
+    2300012: GasHolder
+    2300014: Sweep
+    2300016: Sweep_1
+    2300018: Trigger
+    2300020: Welder_2
+    3300000: Cap_1
+    3300002: Cap_1_2
+    3300004: Cap_2
+    3300006: Cap_2_2
+    3300008: GasBottle
+    3300010: GasBottleConnector
+    3300012: GasHolder
+    3300014: Sweep
+    3300016: Sweep_1
+    3300018: Trigger
+    3300020: Welder_2
+    4300000: Trigger
+    4300002: Sweep
+    4300004: Cap_1
+    4300006: Cap_2
+    4300008: Sweep_1
+    4300010: Cap_1_2
+    4300012: Cap_2_2
+    4300014: GasHolder
+    4300016: GasBottleConnector
+    4300018: GasBottle
+    4300020: Welder_2
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,150 @@
+fileFormatVersion: 2
+guid: ae350b415c1363442a4c66a6fe5801fa
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Rock_c
+    100002: SmallRock_a
+    100004: SmallRock_a_1
+    100006: SmallRock_b
+    100008: SmallRock_c
+    100010: SmallRock_c_1
+    100012: SmallRock_d
+    100014: SmallRock_e
+    100016: SmallRock_e_1
+    100018: SmallRock_f
+    100020: SmallRock_f_1
+    100022: TerrainPlane_1
+    100024: //RootNode
+    400000: Rock_c
+    400002: SmallRock_a
+    400004: SmallRock_a_1
+    400006: SmallRock_b
+    400008: SmallRock_c
+    400010: SmallRock_c_1
+    400012: SmallRock_d
+    400014: SmallRock_e
+    400016: SmallRock_e_1
+    400018: SmallRock_f
+    400020: SmallRock_f_1
+    400022: TerrainPlane_1
+    400024: //RootNode
+    2100000: Rock
+    2100002: MarsGround
+    2300000: Rock_c
+    2300002: SmallRock_a
+    2300004: SmallRock_a_1
+    2300006: SmallRock_b
+    2300008: SmallRock_c
+    2300010: SmallRock_c_1
+    2300012: SmallRock_d
+    2300014: SmallRock_e
+    2300016: SmallRock_e_1
+    2300018: SmallRock_f
+    2300020: SmallRock_f_1
+    2300022: TerrainPlane_1
+    3300000: Rock_c
+    3300002: SmallRock_a
+    3300004: SmallRock_a_1
+    3300006: SmallRock_b
+    3300008: SmallRock_c
+    3300010: SmallRock_c_1
+    3300012: SmallRock_d
+    3300014: SmallRock_e
+    3300016: SmallRock_e_1
+    3300018: SmallRock_f
+    3300020: SmallRock_f_1
+    3300022: TerrainPlane_1
+    4300000: SmallRock_f
+    4300002: SmallRock_f_1
+    4300004: SmallRock_e
+    4300006: SmallRock_e_1
+    4300008: SmallRock_d
+    4300010: SmallRock_c
+    4300012: SmallRock_c_1
+    4300014: SmallRock_b
+    4300016: SmallRock_a
+    4300018: SmallRock_a_1
+    4300020: Rock_c
+    4300022: TerrainPlane_1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
