@@ -211,6 +211,7 @@ ModelImporter:
     4300072: Cube_1_3
     4300074: Cube_3_4
     4300076: Sweep_5
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material

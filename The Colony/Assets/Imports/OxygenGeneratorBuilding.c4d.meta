@@ -1397,6 +1397,7 @@ ModelImporter:
     4300516: ConnectionTube_2
     4300518: Right_door_4
     4300520: Left_door_4
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material

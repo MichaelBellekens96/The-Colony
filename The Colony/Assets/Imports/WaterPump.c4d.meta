@@ -187,27 +187,28 @@ ModelImporter:
     4300064: Sweep
     4300066: Cap_1_4
     4300068: Cap_2_4
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Metal
-    second: {fileID: 2100000, guid: 8f5cdd048df9c6b46abef404bf4686cc, type: 2}
+    second: {fileID: 2100000, guid: bd878fdf06632bb4880bca29d778176c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Steer
-    second: {fileID: 2100000, guid: e38cd302102cab342a0d3e50ce69b14e, type: 2}
+    second: {fileID: 2100000, guid: 965992d060f2b504d8e73dc216be3715, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tanks
-    second: {fileID: 2100000, guid: 9b396ea8b6862354980222f8256e1264, type: 2}
+    second: {fileID: 2100000, guid: 2c198cdf6ba85554eb7c2afd2c7788e3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
