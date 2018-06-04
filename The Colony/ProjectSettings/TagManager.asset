@@ -8,6 +8,9 @@ TagManager:
   - ResourceBox
   - Metal Ore
   - Contruction Site
+  - AirlockPanel
+  - Plants
+  - FoodProcessor
   layers:
   - Default
   - TransparentFX
@@ -21,10 +24,10 @@ TagManager:
   - Terrain
   - Props
   - Base
-  - 
-  - 
-  - 
-  - 
+  - ConstructionSite
+  - Player
+  - StatsBox
+  - Rocks
   - 
   - 
   - 

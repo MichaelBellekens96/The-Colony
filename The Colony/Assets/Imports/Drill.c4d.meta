@@ -9,12 +9,14 @@ ModelImporter:
     100006: Head
     100008: HeadHolder
     100010: Trigger
+    100012: Drill
     400000: //RootNode
     400002: Drill_2
     400004: Flashlight
     400006: Head
     400008: HeadHolder
     400010: Trigger
+    400012: Drill
     2100000: Metal
     2100002: Trigger
     2100004: Welder
@@ -87,8 +89,8 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    swapUVChannels: 0
-    generateSecondaryUV: 0
+    swapUVChannels: 1
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -105,7 +107,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

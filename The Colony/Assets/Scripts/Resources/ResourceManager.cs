@@ -5,8 +5,10 @@ using UnityEngine;
 public enum ResourceTypes
 {
     BioPlastic = 0,
-    Corn,
-    Metal
+    RawFood,
+    Metal,
+    MetalOre,
+    Meal
 }
 
 public class ResourceManager : MonoBehaviour {
@@ -19,10 +21,13 @@ public class ResourceManager : MonoBehaviour {
     [Header("All active resource boxes")]
     public List<Transform> MetalBox = new List<Transform>();
     public List<Transform> BioPlasticBox = new List<Transform>();
-    public List<Transform> CornBox = new List<Transform>();
+    public List<Transform> RawFoodBox = new List<Transform>();
+    public List<Transform> MetalOreBox = new List<Transform>();
     public int numMetalBoxes;
+    public int numMetalOreBoxes;
     public int numBioplasticBoxes;
-    public int numCornBoxes;
+    public int numRawFoodBoxes;
+    public int numMeals;
 
     public GameObject standardBox;
 
@@ -48,13 +53,13 @@ public class ResourceManager : MonoBehaviour {
 
     private void Start()
     {
-        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, 0, numBioplasticBoxes, numCornBoxes, 0, 0);
+        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, numMetalOreBoxes, numBioplasticBoxes, numRawFoodBoxes, numMeals, 0);
         
     }
 
-    public void CreateResourceBox(ResourceTypes type, Transform trans)
+    public void CreateResourceBox(ResourceTypes type, Vector3 pos, Quaternion rot)
     {
-        GameObject resourceBox = Instantiate(standardBox, trans.position, trans.rotation) as GameObject;
+        GameObject resourceBox = Instantiate(standardBox, pos, rot) as GameObject;
         resourceBox.GetComponent<ResourceBox>().LoadData(resourceTypes[GetResourceType(type)]);
         AddToResourceList(type, resourceBox.transform);
     }
@@ -68,19 +73,23 @@ public class ResourceManager : MonoBehaviour {
                 BioPlasticBox.Remove(trans);
                 numBioplasticBoxes--;
                 break;
-            case ResourceTypes.Corn:
-                CornBox.Remove(trans);
-                numCornBoxes--;
+            case ResourceTypes.RawFood:
+                RawFoodBox.Remove(trans);
+                numRawFoodBoxes--;
                 break;
             case ResourceTypes.Metal:
                 MetalBox.Remove(trans);
                 numMetalBoxes--;
                 break;
+            case ResourceTypes.MetalOre:
+                MetalOreBox.Remove(trans);
+                numMetalOreBoxes--;
+                break;
             default:
                 break;
         }
         Destroy(trans.gameObject);
-        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, 0, numBioplasticBoxes, numCornBoxes, 0, 0);
+        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, numMetalOreBoxes, numBioplasticBoxes, numRawFoodBoxes, numMeals, 0);
     }
 
     private int GetResourceType(ResourceTypes type)
@@ -107,18 +116,33 @@ public class ResourceManager : MonoBehaviour {
                 BioPlasticBox.Add(box);
                 numBioplasticBoxes++;
                 break;
-            case ResourceTypes.Corn:
-                CornBox.Add(box);
-                numCornBoxes++;
+            case ResourceTypes.RawFood:
+                RawFoodBox.Add(box);
+                numRawFoodBoxes++;
                 break;
             case ResourceTypes.Metal:
                 MetalBox.Add(box);
                 numMetalBoxes++;
                 break;
+            case ResourceTypes.MetalOre:
+                MetalOreBox.Add(box);
+                numMetalOreBoxes++;
+                break;
             default:
                 break;
         }
-        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, 0, numBioplasticBoxes, numCornBoxes, 0, 0);
+        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, 0, numBioplasticBoxes, numRawFoodBoxes, 0, 0);
+    }
+
+    public void AddMealToList()
+    {
+        numMeals++;
+        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, numMetalOreBoxes, numBioplasticBoxes, numRawFoodBoxes, numMeals, 0);
     }
 	
+    public void RemoveMealFromList()
+    {
+        numMeals--;
+        MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, numMetalOreBoxes, numBioplasticBoxes, numRawFoodBoxes, numMeals, 0);
+    }
 }

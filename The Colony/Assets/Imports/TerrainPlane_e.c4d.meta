@@ -23,6 +23,8 @@ ModelImporter:
     100034: SmallRock_f
     100036: TerrainPlane_1
     100038: //RootNode
+    100040: Rocks
+    100042: Special_Rock
     400000: Metal
     400002: MetalOre_a
     400004: Rock
@@ -43,6 +45,8 @@ ModelImporter:
     400034: SmallRock_f
     400036: TerrainPlane_1
     400038: //RootNode
+    400040: Rocks
+    400042: Special_Rock
     2100000: Rock
     2100002: Metal
     2100004: MarsGround
@@ -136,8 +140,8 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    swapUVChannels: 0
-    generateSecondaryUV: 0
+    swapUVChannels: 1
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

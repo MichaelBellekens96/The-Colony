@@ -16,6 +16,7 @@ ModelImporter:
     100020: SmallRock_f_1
     100022: TerrainPlane_1
     100024: //RootNode
+    100026: Rocks
     400000: Rock_c
     400002: SmallRock_a
     400004: SmallRock_a_1
@@ -29,6 +30,7 @@ ModelImporter:
     400020: SmallRock_f_1
     400022: TerrainPlane_1
     400024: //RootNode
+    400026: Rocks
     2100000: Rock
     2100002: MarsGround
     2300000: Rock_c
@@ -106,8 +108,8 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    swapUVChannels: 0
-    generateSecondaryUV: 0
+    swapUVChannels: 1
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

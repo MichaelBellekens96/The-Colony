@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 5c50b01b02cd049428402d8f366509cb
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: CropBox_2
+    100002: //RootNode
+    100004: Ground
+    100006: Ground_2
+    100008: Leg
+    100010: Leg_2
+    100012: Leg_3
+    100014: Leg_4
+    100016: Legs_Pipes
+    100018: Plants
+    100020: TomatoPlant
+    100022: TomatoPlant_2
+    100024: TomatoPlant_3
+    100026: Waterpipe1
+    100028: Waterpipe2
+    100030: Tomatoes
+    100032: Tomatoes_2
+    100034: Tomatoes_3
+    100036: Tomatoes_4
+    100038: TomatoPlant_1
+    100040: TomatoPlant_2_2
+    400000: CropBox_2
+    400002: //RootNode
+    400004: Ground
+    400006: Ground_2
+    400008: Leg
+    400010: Leg_2
+    400012: Leg_3
+    400014: Leg_4
+    400016: Legs_Pipes
+    400018: Plants
+    400020: TomatoPlant
+    400022: TomatoPlant_2
+    400024: TomatoPlant_3
+    400026: Waterpipe1
+    400028: Waterpipe2
+    400030: Tomatoes
+    400032: Tomatoes_2
+    400034: Tomatoes_3
+    400036: Tomatoes_4
+    400038: TomatoPlant_1
+    400040: TomatoPlant_2_2
+    2100000: VG18frt4
+    2100002: Ground
+    2100004: Plastic
+    2100006: Metal
+    2300000: CropBox_2
+    2300002: Ground_2
+    2300004: Leg
+    2300006: Leg_2
+    2300008: Leg_3
+    2300010: Leg_4
+    2300012: TomatoPlant
+    2300014: TomatoPlant_2
+    2300016: TomatoPlant_3
+    2300018: Waterpipe1
+    2300020: Waterpipe2
+    2300022: Tomatoes
+    2300024: Tomatoes_2
+    2300026: Tomatoes_3
+    2300028: Tomatoes_4
+    2300030: TomatoPlant_1
+    2300032: TomatoPlant_2_2
+    3300000: CropBox_2
+    3300002: Ground_2
+    3300004: Leg
+    3300006: Leg_2
+    3300008: Leg_3
+    3300010: Leg_4
+    3300012: TomatoPlant
+    3300014: TomatoPlant_2
+    3300016: TomatoPlant_3
+    3300018: Waterpipe1
+    3300020: Waterpipe2
+    3300022: Tomatoes
+    3300024: Tomatoes_2
+    3300026: Tomatoes_3
+    3300028: Tomatoes_4
+    3300030: TomatoPlant_1
+    3300032: TomatoPlant_2_2
+    4300000: TomatoPlant
+    4300002: TomatoPlant_2
+    4300004: TomatoPlant_3
+    4300006: Ground_2
+    4300008: CropBox_2
+    4300010: Waterpipe1
+    4300012: Waterpipe2
+    4300014: Leg
+    4300016: Leg_2
+    4300018: Leg_3
+    4300020: Leg_4
+    4300022: TomatoPlant_1
+    4300024: TomatoPlant_2_2
+    4300026: Tomatoes
+    4300028: Tomatoes_2
+    4300030: Tomatoes_3
+    4300032: Tomatoes_4
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2100000, guid: 1c5c89af772311748ad36ffeb276d78d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 01e7db4eae1406846bcc7744e367a812, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic
+    second: {fileID: 2100000, guid: 48f3b3acef091104eb175be7224d7044, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VG18frt3
+    second: {fileID: 2100000, guid: b4a50679d1945684e9919b2c22d56ef8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VG18frt4
+    second: {fileID: 2100000, guid: 9180fcea4dec8c946a7cf5a4e8847343, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 1
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

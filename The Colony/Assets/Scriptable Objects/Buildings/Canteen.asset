@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: Canteen
+  m_EditorClassIdentifier: 
+  buildingName: Canteen
+  buildingPrefab: {fileID: 1287697313979902, guid: 3d2148c1be67b1748bad57329a04faf1,
+    type: 2}
+  type: 2
+  utilityBuilding: 0
+  buildingSprite: {fileID: 21300000, guid: bcfec32ba53b5824486bd55b295e6837, type: 3}
+  description: The canteen is used by you and other astronauts to eat there meals.
+    Meals can be made in the Kitchen.
+  metal: 2
+  bioPlastic: 2
+  powerCons: 3
+  waterCons: 0
+  powerProd: 0
+  waterProd: 0

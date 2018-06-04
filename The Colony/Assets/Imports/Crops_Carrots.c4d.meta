@@ -1,0 +1,245 @@
+fileFormatVersion: 2
+guid: 5d9d6abaa1e79f74f99d1de54f3135d8
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Carots
+    100002: Carots_2
+    100004: Carots_3
+    100006: Carrot
+    100008: Carrot_1
+    100010: Carrot_1_2
+    100012: Carrot_1_3
+    100014: Carrot_2
+    100016: Carrot_2_2
+    100018: Carrot_2_3
+    100020: Carrot_2_4
+    100022: Carrot_3
+    100024: Carrot_3_2
+    100026: Carrot_3_3
+    100028: Carrot_3_4
+    100030: Carrot_4
+    100032: Carrot_4_2
+    100034: Carrot_4_3
+    100036: CropBox_2
+    100038: //RootNode
+    100040: Ground
+    100042: Ground_2
+    100044: Leg
+    100046: Leg_2
+    100048: Leg_3
+    100050: Leg_4
+    100052: Legs_Pipes
+    100054: Plants
+    100056: Waterpipe1
+    100058: Waterpipe2
+    400000: Carots
+    400002: Carots_2
+    400004: Carots_3
+    400006: Carrot
+    400008: Carrot_1
+    400010: Carrot_1_2
+    400012: Carrot_1_3
+    400014: Carrot_2
+    400016: Carrot_2_2
+    400018: Carrot_2_3
+    400020: Carrot_2_4
+    400022: Carrot_3
+    400024: Carrot_3_2
+    400026: Carrot_3_3
+    400028: Carrot_3_4
+    400030: Carrot_4
+    400032: Carrot_4_2
+    400034: Carrot_4_3
+    400036: CropBox_2
+    400038: //RootNode
+    400040: Ground
+    400042: Ground_2
+    400044: Leg
+    400046: Leg_2
+    400048: Leg_3
+    400050: Leg_4
+    400052: Legs_Pipes
+    400054: Plants
+    400056: Waterpipe1
+    400058: Waterpipe2
+    2100000: Carrot
+    2100002: Carrot_GReen
+    2100004: Ground
+    2100006: Plastic
+    2100008: Metal
+    2300000: Carrot
+    2300002: Carrot_1
+    2300004: Carrot_1_2
+    2300006: Carrot_1_3
+    2300008: Carrot_2
+    2300010: Carrot_2_2
+    2300012: Carrot_2_3
+    2300014: Carrot_2_4
+    2300016: Carrot_3
+    2300018: Carrot_3_2
+    2300020: Carrot_3_3
+    2300022: Carrot_3_4
+    2300024: Carrot_4
+    2300026: Carrot_4_2
+    2300028: Carrot_4_3
+    2300030: CropBox_2
+    2300032: Ground_2
+    2300034: Leg
+    2300036: Leg_2
+    2300038: Leg_3
+    2300040: Leg_4
+    2300042: Waterpipe1
+    2300044: Waterpipe2
+    3300000: Carrot
+    3300002: Carrot_1
+    3300004: Carrot_1_2
+    3300006: Carrot_1_3
+    3300008: Carrot_2
+    3300010: Carrot_2_2
+    3300012: Carrot_2_3
+    3300014: Carrot_2_4
+    3300016: Carrot_3
+    3300018: Carrot_3_2
+    3300020: Carrot_3_3
+    3300022: Carrot_3_4
+    3300024: Carrot_4
+    3300026: Carrot_4_2
+    3300028: Carrot_4_3
+    3300030: CropBox_2
+    3300032: Ground_2
+    3300034: Leg
+    3300036: Leg_2
+    3300038: Leg_3
+    3300040: Leg_4
+    3300042: Waterpipe1
+    3300044: Waterpipe2
+    4300000: Carrot_4
+    4300002: Carrot_3
+    4300004: Carrot_2
+    4300006: Carrot_1
+    4300008: Carrot
+    4300010: Carrot_4_2
+    4300012: Carrot_3_2
+    4300014: Carrot_2_2
+    4300016: Carrot_1_2
+    4300018: Carrot_2_3
+    4300020: Carrot_4_3
+    4300022: Carrot_3_3
+    4300024: Carrot_2_4
+    4300026: Carrot_1_3
+    4300028: Carrot_3_4
+    4300030: Ground_2
+    4300032: CropBox_2
+    4300034: Waterpipe1
+    4300036: Waterpipe2
+    4300038: Leg
+    4300040: Leg_2
+    4300042: Leg_3
+    4300044: Leg_4
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carrot
+    second: {fileID: 2100000, guid: e996e16ad77a26748be6f76943211df3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carrot_GReen
+    second: {fileID: 2100000, guid: ba7f528504b78c44f9684d88054c291d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2100000, guid: b6bdd13eca2dd084eadb5a2f8a7c3e90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: b71ed16d7cf082548b9b5618c34ea1c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic
+    second: {fileID: 2100000, guid: bb134a458b1f1334ebf062b7ce8a40e5, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 1
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

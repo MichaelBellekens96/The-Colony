@@ -34,8 +34,20 @@ public class MainUIManager : MonoBehaviour {
     public GameObject toolsPanel;
     public Text activeTool;
 
+    [Header("Contruction Site")]
+    public GameObject constructionPanel;
+    public Text buildingName;
+    public Text numNeededMetal;
+    public Text numNeededBioPlastic;
+    public Text buildProgression;
+
+    [Header("Interaction")]
+    public Text interactionText;
+
     public PlayerController playerController;
+    public PlayerStats playerStats;
     public BuildingPlacement buildingManager;
+    public BaseStatsMenu baseStatsMenu;
 
     private Color green = Color.green;
     private Color red = Color.red;
@@ -56,6 +68,8 @@ public class MainUIManager : MonoBehaviour {
     {
         playerController.gameObject.SetActive(true);
         buildingManager.gameObject.SetActive(false);
+        constructionPanel.SetActive(false);
+        ToggleInteractionText(false);
     }
 
     public void ToggleBuildMenu()
@@ -75,6 +89,11 @@ public class MainUIManager : MonoBehaviour {
             playerAudioListener.enabled = true;
             toolsPanel.SetActive(true);
             statsPanel.SetActive(true);
+            baseStatsMenu.enabled = false;
+            baseStatsMenu.gameObject.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         // If buildingmenu is not active, turn it on
         else
@@ -86,7 +105,88 @@ public class MainUIManager : MonoBehaviour {
             playerAudioListener.enabled = false;
             toolsPanel.SetActive(false);
             statsPanel.SetActive(false);
+            baseStatsMenu.enabled = false;
+            baseStatsMenu.gameObject.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
+    }
+
+    public void ToggleStatsMenu()
+    {
+        Debug.Log("Toggling StatsMenu...");
+        Camera playerCamera = playerController.GetComponentInChildren<Camera>();
+        AudioListener playerAudioListener = playerController.GetComponentInChildren<AudioListener>();
+        Camera buildCamera = buildingManager.GetComponentInChildren<Camera>();
+        Camera statsCamera = baseStatsMenu.statsMenuCamera;
+
+        // If Statsmenu is active disable it
+        if (baseStatsMenu.gameObject.activeSelf)
+        {
+            Debug.Log("Disabling Statmenu");
+            baseStatsMenu.enabled = false;
+            baseStatsMenu.gameObject.SetActive(false);
+            statsCamera.gameObject.SetActive(false);
+
+            playerCamera.enabled = true;
+            playerController.enabled = true;
+            playerAudioListener.enabled = true;
+            toolsPanel.SetActive(true);
+            statsPanel.SetActive(true);
+            resourcesPanel.SetActive(true);
+
+            buildCamera.enabled = false;
+            buildingManager.gameObject.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        // If Statsmenu is not active enable it
+        else
+        {
+            Debug.Log("Enabling Statmenu");
+            baseStatsMenu.enabled = true;
+            baseStatsMenu.gameObject.SetActive(true);
+            statsCamera.gameObject.SetActive(true);
+
+            playerCamera.enabled = false;
+            playerController.enabled = false;
+            playerAudioListener.enabled = false;
+            toolsPanel.SetActive(false);
+            statsPanel.SetActive(false);
+            resourcesPanel.SetActive(false);
+
+            buildCamera.enabled = false;
+            buildingManager.gameObject.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+    public void UpdateStatsPanel()
+    {
+        healthSlider.value = playerStats.Health;
+        if (playerStats.Health > 50) healthColor.color = Color.Lerp(Color.yellow, green, (playerStats.Health - 50) / 50);
+        if (playerStats.Health < 50) healthColor.color = Color.Lerp(red, Color.yellow, playerStats.Health / 50);
+
+        oxygenSlider.value = playerStats.Oxygen;
+        if (playerStats.Oxygen > 50) oxygenColor.color = Color.Lerp(Color.yellow, green, (playerStats.Oxygen - 50) / 50);
+        if (playerStats.Oxygen < 50) oxygenColor.color = Color.Lerp(red, Color.yellow, playerStats.Oxygen / 50);
+
+        hungerSlider.value = playerStats.Hunger;
+        if (playerStats.Hunger > 50) hungerColor.color = Color.Lerp(Color.yellow, green, (playerStats.Hunger - 50) / 50);
+        if (playerStats.Hunger < 50) hungerColor.color = Color.Lerp(red, Color.yellow, playerStats.Hunger / 50);
+
+        thirstSlider.value = playerStats.Thirst;
+        if (playerStats.Thirst > 50) thirstColor.color = Color.Lerp(Color.yellow, green, (playerStats.Thirst - 50) / 50);
+        if (playerStats.Thirst < 50) thirstColor.color = Color.Lerp(red, Color.yellow, playerStats.Thirst / 50);
+
+        sleepSlider.value = playerStats.Sleep;
+        if (playerStats.Sleep > 50) sleepColor.color = Color.Lerp(Color.yellow, green, (playerStats.Sleep - 50) / 50);
+        if (playerStats.Sleep < 50) sleepColor.color = Color.Lerp(red, Color.yellow, playerStats.Sleep / 50);
+
     }
 
     public void UpdateStatsPanel(float health, float oxygen, float hunger, float thirst, float sleep)
@@ -142,5 +242,32 @@ public class MainUIManager : MonoBehaviour {
         rawFoodText.text = rawFood.ToString();
         mealText.text = meals.ToString();
         drinkText.text = drinks.ToString();
+    }
+
+    public void UpdateConstructionPanel(int metal, int bioPlastic, string name)
+    {
+        buildingName.text = name;
+        numNeededMetal.text = metal.ToString();
+        numNeededBioPlastic.text = bioPlastic.ToString();
+    }
+
+    public void ToggleConstructionPanel(bool value)
+    {
+        constructionPanel.SetActive(value);
+    }
+
+    public void UpdateBuildPercentage(float percentage)
+    {
+        buildProgression.text = Mathf.RoundToInt(percentage * 10).ToString() + "%";
+    }
+
+    public void SetInteractionText(string message)
+    {
+        interactionText.text = message;
+    }
+
+    public void ToggleInteractionText(bool value)
+    {
+        interactionText.gameObject.SetActive(value);
     }
 }

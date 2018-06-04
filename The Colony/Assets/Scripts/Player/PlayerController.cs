@@ -13,9 +13,9 @@ enum Tools
 public class PlayerController : MonoBehaviour {
 
     [Header("Movement")]
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 10f;
-    public float jumpForce = 5f;
+    public float walkSpeed;
+    public float sprintSpeed;
+    public float jumpForce;
     public bool isGrounded = true;
     public bool freezed;
     public bool allowJump = true;
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
     public int indexTool = 0;
     public Transform toolsHolder;
     public GameObject[] tools = new GameObject[4];
+    public GameObject flashlight;
 
     [Header("Script references")]
     public BuildingPlacement build;
@@ -42,10 +43,16 @@ public class PlayerController : MonoBehaviour {
     private static Rigidbody rb;
     private static Camera playerCamera;
     private RaycastHit hit;
+    private RaycastHit collisionHit;
     private string tagHit;
     private GameObject hitGameObject;
+    private Vector3 startPosition = new Vector3(0, 0.8f, 0);
+    public bool insideBase;
 
     public float testFloat;
+    public Vector3 lastPosition = Vector3.zero;
+    public float v_input;
+    public float playerSpeed = 0;
 
     // Use this for initialization
     void Start () {
@@ -65,8 +72,9 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         LookRotation(transform, playerCamera.transform);
-        if (input.cancel && playerTasks.isCarryingObject) playerTasks.DropObject();
+        if (input.interact && playerTasks.isCarryingObject) playerTasks.DropObject();
         if (input.mouse_0) CheckTool(indexTool);
+        if (input.flashlight) ToggleFlashlight();
 
         #region TestingCode
         if (Input.GetKeyDown(KeyCode.H))
@@ -80,6 +88,7 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate()
     {
         Move();
+        CheckCollision();
     }
 
     private void InstantiateTools()
@@ -90,7 +99,7 @@ public class PlayerController : MonoBehaviour {
             {
                 GameObject selectedTool = Instantiate(tools[i], toolsHolder) as GameObject;
                 selectedTool.transform.localPosition = new Vector3(0, 0, 1);
-                selectedTool.transform.localRotation = Quaternion.identity;
+                selectedTool.transform.rotation = Quaternion.identity;
                 tools[i] = selectedTool;
                 selectedTool.gameObject.SetActive(false);
             }
@@ -103,7 +112,24 @@ public class PlayerController : MonoBehaviour {
     {
         speed = input.l_Shift ? sprintSpeed : walkSpeed;
 
-        rb.MovePosition(transform.position + (transform.forward * input.v_Axis + transform.right * input.h_Axis) * speed * Time.deltaTime);
+        lastPosition = transform.position;
+
+        v_input = CheckMovementCollision();
+        rb.MovePosition(transform.position + (transform.forward * v_input + transform.right * input.h_Axis) * speed * Time.deltaTime);
+
+        if (v_input != 0 && speed != sprintSpeed || input.h_Axis != 0 && speed != sprintSpeed)
+        {
+            playerCamera.transform.localPosition = startPosition + new Vector3(0.0f, 0.02f * Mathf.Sin(10 * Time.time), 0.0f);
+        }
+        else if (v_input != 0 && speed == sprintSpeed || input.h_Axis != 0 && speed == sprintSpeed)
+        {
+            playerCamera.transform.localPosition = startPosition + new Vector3(0.0f, 0.03f * Mathf.Sin(20 * Time.time), 0.0f);
+        }
+
+        if (Time.time <= 1)
+        {
+            playerSpeed = transform.position.z;
+        }
 
         if (input.jump && allowJump)
         {
@@ -119,6 +145,207 @@ public class PlayerController : MonoBehaviour {
                 isGrounded = false;
             }
         }
+    }
+
+    private float CheckMovementCollision()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.yellow);
+        if (Physics.Raycast(transform.position, transform.forward, out collisionHit,0.8f, 1 << LayerMask.NameToLayer("Base")))
+        {
+            //Debug.Log("Hitting base");
+
+            if (input.v_Axis > 0 && !collisionHit.collider.isTrigger)
+            {
+                return 0;
+            }
+            else
+            {
+                return input.v_Axis;
+            }
+        }
+        else
+        {
+            return input.v_Axis;
+        }
+    }
+
+    private void CheckCollision()
+    {
+        int layermask = 1 << 13;
+        layermask = ~layermask;
+        GameObject lastConstructionSite = null;
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5, Color.red);
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out collisionHit, 5f, layermask))
+        {
+            if (collisionHit.transform.gameObject.layer == 12)
+            {
+                if (!MainUIManager.Instance.constructionPanel.activeSelf || collisionHit.transform.gameObject != lastConstructionSite)
+                {
+                    if (collisionHit.transform.gameObject.GetComponent<ConstructionSite>())
+                    {
+                        ConstructionSite data = collisionHit.transform.gameObject.GetComponent<ConstructionSite>();
+                        MainUIManager.Instance.UpdateConstructionPanel(data.numNeededMetal, data.numNeededBioPlastic, data.buildingName);
+                        MainUIManager.Instance.UpdateBuildPercentage(data.buildPercentage);
+                        MainUIManager.Instance.ToggleConstructionPanel(true);
+                    }
+                }
+                lastConstructionSite = collisionHit.transform.gameObject;
+            }
+            else
+            {
+                MainUIManager.Instance.ToggleConstructionPanel(false);
+            }
+
+            if (collisionHit.transform.tag == "ResourceBox")
+            {
+                if (input.interact && !playerTasks.isCarryingObject && indexTool == 0)
+                {
+                    playerTasks.CarryObject(collisionHit.transform.gameObject);
+                    StartCoroutine(DelayCarryObject());
+
+                }
+                if (!playerTasks.isCarryingObject && indexTool == 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to pick up the resource box");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+
+                //Debug.Log("Hitting resource box");
+            }
+            else if (collisionHit.transform.tag == "Contruction Site")
+            {
+                if (!playerTasks.isCarryingObject && collisionHit.transform.GetComponent<ConstructionSite>().allResourcesPresent && indexTool == 2)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'Left Mouse Button' to construct your building");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                else if (!playerTasks.isCarryingObject && collisionHit.transform.GetComponent<ConstructionSite>().allResourcesPresent)
+                {
+                    MainUIManager.Instance.SetInteractionText("Use your 'Welder' and press 'Left Mouse Button' to construct your building");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "Metal Ore")
+            {
+                if (!playerTasks.isCarryingObject && indexTool == 1)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'Left Mouse Button' to drill for 'Metal Ore'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                else if (!playerTasks.isCarryingObject)
+                {
+                    MainUIManager.Instance.SetInteractionText("Use your 'Drill' and press 'Left Mouse Button' to drill for 'Metal Ore'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+
+            }
+            else if (collisionHit.transform.tag == "Plants")
+            {
+                if (!playerTasks.isCarryingObject)
+                {
+                    PlantController plantController = collisionHit.transform.GetComponent<PlantController>();
+                    if (!plantController.mayHarvest && !plantController.plantsFullyGrown && !plantController.plantsGrowing)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to plant seeds");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            plantController.GrowPlants();
+                        }
+                    }
+                    else if (plantController.mayHarvest && plantController.plantsFullyGrown)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to harvest your crops");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            plantController.HarvestPlants(transform.position, transform.rotation);
+                        }
+                    }
+                    else
+                    {
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+            }
+            else if (collisionHit.transform.tag == "FoodProcessor")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.RawFood)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to add 'Raw Food' to the 'Food Processor'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            collisionHit.transform.GetComponent<FoodProcessor>().AddMeal(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                        }
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numMeals > 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get a 'Meal' from the 'Food Processor'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        collisionHit.transform.GetComponent<FoodProcessor>().PrepareMeal();
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else
+            {
+                MainUIManager.Instance.ToggleInteractionText(false);
+            }
+
+            if (collisionHit.transform.gameObject.layer == 11)
+            {
+                GameObject building = collisionHit.transform.gameObject;
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    BaseManager.Instance.DisableBuilding(building.GetComponentInParent<BuildingController>().gameObject);
+                    Debug.Log("Disabling building...");
+                }
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    BaseManager.Instance.EnableBuilding(building.GetComponentInParent<BuildingController>().gameObject);
+                    Debug.Log("Enabling building...");
+                }
+            }
+            if (collisionHit.transform.tag == "AirlockPanel")
+            {
+                if (input.interact && !playerTasks.isCarryingObject)
+                {
+                    playerTasks.UseAirlockPanel();
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+                else
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to use the 'Airlock'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+                
+            }
+        }
+           
+        
+        
     }
 
     public void LookRotation(Transform character, Transform camera)
@@ -180,6 +407,11 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void ToggleFlashlight()
+    {
+        flashlight.SetActive(!flashlight.activeSelf);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Base")
@@ -188,7 +420,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    /*private void OnTriggerStay(Collider other)
     {
         //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5f, Color.yellow);
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f))
@@ -207,7 +439,7 @@ public class PlayerController : MonoBehaviour {
                     break;
             }
         }
-    }
+    }*/
 
     private void OnTriggerExit(Collider other)
     {
@@ -215,6 +447,20 @@ public class PlayerController : MonoBehaviour {
         {
             rb.drag = 0.2f;
         }
+    }
+
+    /*private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Base"))
+        {
+            rb.MovePosition(lastPosition - new Vector3(0, 0, 2));
+        }
+    }*/
+
+    public IEnumerator DelayCarryObject()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerTasks.isCarryingObject = true;
     }
 
     public IEnumerator JumpTimeOut()

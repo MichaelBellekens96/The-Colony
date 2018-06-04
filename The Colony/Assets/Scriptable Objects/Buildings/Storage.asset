@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: Storage
+  m_EditorClassIdentifier: 
+  buildingName: Storage
+  buildingPrefab: {fileID: 1099367264830404, guid: 017017d168865014591b1579ef55258e,
+    type: 2}
+  type: 2
+  utilityBuilding: 0
+  buildingSprite: {fileID: 21300000, guid: b200db9f1e503454ab8d77a392f55ea9, type: 3}
+  description: The storage can be used to secure al of your resources. Once put into
+    a resource building you can acces your resources in any storage building.
+  metal: 2
+  bioPlastic: 2
+  powerCons: 3
+  waterCons: 0
+  powerProd: 0
+  waterProd: 0

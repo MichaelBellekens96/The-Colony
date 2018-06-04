@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: SolarPanels
+  m_EditorClassIdentifier: 
+  buildingName: SolarPanels
+  buildingPrefab: {fileID: 1827156980538340, guid: 89827b75e9f17e74a814dfdfba3d0863,
+    type: 2}
+  type: 1
+  utilityBuilding: 1
+  buildingSprite: {fileID: 21300000, guid: 057d9c1e6cc05c1418dd2e3d69131429, type: 3}
+  description: Solarpanels create electricity via sunlight. CAREFULL solar panels
+    only work during day en can't work at night!
+  metal: 1
+  bioPlastic: 0
+  powerCons: 0
+  waterCons: 0
+  powerProd: 5
+  waterProd: 0

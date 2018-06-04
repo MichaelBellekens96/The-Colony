@@ -27,14 +27,17 @@ public class InputManager : MonoBehaviour {
     public bool interact;
     public bool cancel;
     public bool buildMenu;
+    public bool statsMenu;
     public bool tool_0;
     public bool tool_1;
     public bool tool_2;
     public bool tool_3;
     public bool turnLeft;
     public bool turnRight;
+    public bool flashlight;
 
     public PlayerController playerController;
+    public TerrainManager terrainManager;
 
     // Update is called once per frame
     void Update () {
@@ -55,14 +58,16 @@ public class InputManager : MonoBehaviour {
         turnLeft = Input.GetButtonDown(TURNLEFT);
         turnRight = Input.GetButtonDown(TURNRIGHT);
 
-        interact = Input.GetButton(INTERACT);
+        interact = Input.GetButtonDown(INTERACT);
         cancel = Input.GetButtonDown(CANCEL);
-        buildMenu = Input.GetKeyDown(KeyCode.B);
+        buildMenu = Input.GetKeyDown(KeyCode.F2);
+        statsMenu = Input.GetKeyDown(KeyCode.F3);
+        flashlight = Input.GetKeyDown(KeyCode.L);
 
-        tool_0 = Input.GetKeyDown(KeyCode.Alpha0);
-        tool_1 = Input.GetKeyDown(KeyCode.Alpha1);
-        tool_2 = Input.GetKeyDown(KeyCode.Alpha2);
-        tool_3 = Input.GetKeyDown(KeyCode.Alpha3);
+        tool_0 = Input.GetKeyDown(KeyCode.Alpha1);
+        tool_1 = Input.GetKeyDown(KeyCode.Alpha2);
+        tool_2 = Input.GetKeyDown(KeyCode.Alpha3);
+        tool_3 = Input.GetKeyDown(KeyCode.Alpha4);
         #endregion
 
         if (tool_0) playerController.ChangeTool(0);
@@ -70,8 +75,12 @@ public class InputManager : MonoBehaviour {
         if (tool_2) playerController.ChangeTool(2);
         if (tool_3) playerController.ChangeTool(3);
         if (buildMenu) MainUIManager.Instance.ToggleBuildMenu();
+        if (statsMenu) MainUIManager.Instance.ToggleStatsMenu();
 
-        if (Input.GetKeyDown(KeyCode.O)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.BioPlastic, playerController.transform);
-        if (Input.GetKeyDown(KeyCode.P)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, playerController.transform);
+        if (Input.GetKeyDown(KeyCode.O)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.BioPlastic, playerController.transform.position, transform.rotation);
+        if (Input.GetKeyDown(KeyCode.P)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, playerController.transform.position, transform.rotation);
+        if (Input.GetKeyDown(KeyCode.F1)) terrainManager.GenerateNewTerrain();
+        if (Input.GetKeyDown(KeyCode.Keypad1)) BaseManager.Instance.DisableAllLights();
+        if (Input.GetKeyDown(KeyCode.Keypad2)) BaseManager.Instance.EnableAllLights();
     }
 }

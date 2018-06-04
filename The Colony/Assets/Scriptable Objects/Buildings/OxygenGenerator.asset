@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: OxygenGenerator
+  m_EditorClassIdentifier: 
+  buildingName: OxygenGenerator
+  buildingPrefab: {fileID: 1682267117002554, guid: bae9fda99a052924cb0d729a9d85a5de,
+    type: 2}
+  type: 2
+  buildingSprite: {fileID: 21300000, guid: 27d3a0589ce2e1d4e974270a552fe264, type: 3}
+  description: The oxygengenerator produces oxygen so you and your astronauts can
+    breath inside your base. It uses electricity and water to produce oxygen.
+  metal: 2
+  bioPlastic: 0
+  powerCons: 4
+  waterCons: 4
+  powerProd: 0
+  waterProd: 0

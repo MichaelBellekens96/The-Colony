@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: ConnectionBuilding
+  m_EditorClassIdentifier: 
+  buildingName: ConnectionBuilding
+  buildingPrefab: {fileID: 1655920678572866, guid: 388594ae4fd820848aec0f97b8568812,
+    type: 2}
+  type: 3
+  buildingSprite: {fileID: 21300000, guid: 1ac926e4fe2bc67428b223a409a8bc5e, type: 3}
+  description: The connection building is used to connect buildings with eachother.
+    In case of an meteorite these connection buildings can helpt you to reach the
+    other site of your base when a building is closed down.
+  metal: 1
+  bioPlastic: 1
+  powerCons: 1
+  waterCons: 0
+  powerProd: 0
+  waterProd: 0

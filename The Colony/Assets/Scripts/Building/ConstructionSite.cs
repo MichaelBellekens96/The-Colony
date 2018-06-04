@@ -7,6 +7,7 @@ public class ConstructionSite : MonoBehaviour {
     public float buildPercentage;
 
     public GameObject linkedBuilding;
+    public string buildingName;
     public int numNeededMetal;
     public int numNeededBioPlastic;
 
@@ -19,10 +20,14 @@ public class ConstructionSite : MonoBehaviour {
     public List<Transform> presentMetalList = new List<Transform>();
     public List<Transform> presentBioPlasticList = new List<Transform>();
 
+    public BuildingData buildingData;
+
     public void InitializeConstructionSite(BuildingData data)
     {
         numNeededMetal = data.metal;
         numNeededBioPlastic = data.bioPlastic;
+        buildingName = data.buildingName;
+        buildingData = data;
     }
 
     // Check if enough resources at site
@@ -70,9 +75,12 @@ public class ConstructionSite : MonoBehaviour {
             }
             presentBioPlasticList.Clear();
         }
-        
+
+        BaseManager.Instance.AddBuildingToList(linkedBuilding, buildingData);
+        BaseManager.Instance.RecalculateOxygen();
+
         linkedBuilding.SetActive(true);
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,13 +89,36 @@ public class ConstructionSite : MonoBehaviour {
         {
             if (other.GetComponent<ResourceBox>().type == ResourceTypes.Metal)
             {
-                presentMetal++;
-                presentMetalList.Add(other.transform);
+                bool alreadyInList = false;
+                for (int i = 0; i < presentMetalList.Count; i++)
+                {
+                    if (other.gameObject == presentMetalList[i].gameObject)
+                    {
+                        alreadyInList = true;
+                    }
+                }
+                if (!alreadyInList)
+                {
+                    presentMetal++;
+                    presentMetalList.Add(other.transform);
+                }
+                
             }
             if (other.GetComponent<ResourceBox>().type == ResourceTypes.BioPlastic)
             {
-                presentBioPlastic++;
-                presentBioPlasticList.Add(other.transform);
+                bool alreadyInList = false;
+                for (int i = 0; i < presentBioPlasticList.Count; i++)
+                {
+                    if (other.gameObject == presentBioPlasticList[i].gameObject)
+                    {
+                        alreadyInList = true;
+                    }
+                }
+                if (!alreadyInList)
+                {
+                    presentBioPlastic++;
+                    presentBioPlasticList.Add(other.transform);
+                }
             }
             CheckResourcesForConstruction();
         }

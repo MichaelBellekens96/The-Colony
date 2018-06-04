@@ -19,20 +19,27 @@ public class CollisionDetector : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.tag == "Player")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 12 ||other.gameObject.tag == "Player" || other.gameObject.layer == 15)
         {
-            //Debug.Log("Hitting a prop");
-            numCollidingGameobjects++;
-            isColliding = true;
+            if (!other.gameObject.GetComponent<OpenDoor>() && !other.gameObject.GetComponent<OpenTurningDoor>())
+            {
+                //Debug.Log("Hitting a prop");
+                numCollidingGameobjects++;
+                isColliding = true;
+                //Debug.Log(other.gameObject.name);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.tag == "Player")
+        if (other.gameObject.layer == 10 || other.gameObject.layer == 11 || other.gameObject.layer == 12 || other.gameObject.tag == "Player" || other.gameObject.layer == 15)
         {
-            numCollidingGameobjects--;
-            if (numCollidingGameobjects == 0) isColliding = false;
+            if (!other.gameObject.GetComponent<OpenDoor>() && !other.gameObject.GetComponent<OpenTurningDoor>())
+            {
+                numCollidingGameobjects--;
+                if (numCollidingGameobjects == 0) isColliding = false;
+            }
         }
     }
 

@@ -81,7 +81,7 @@ public class PlayerStats : MonoBehaviour {
 
     public void Heal(float _extraHealth)
     {
-        Hunger += _extraHealth;
+        Health += _extraHealth;
     }
 
     public void Damage(float _damage)
@@ -95,7 +95,7 @@ public class PlayerStats : MonoBehaviour {
 
     private void Die()
     {
-        Debug.Log("You died :'(");
+        //Debug.Log("You died :'(");
     }
 
     private void LoopAllStats()
@@ -109,7 +109,7 @@ public class PlayerStats : MonoBehaviour {
 
         Damage(totalDamage);
 
-        MainUIManager.Instance.UpdateStatsPanel(health, Oxygen, Hunger, Thirst, Sleep);
+        MainUIManager.Instance.UpdateStatsPanel(Health, Oxygen, Hunger, Thirst, Sleep);
     }
 
     private void DecreaseHunger()
@@ -143,7 +143,7 @@ public class PlayerStats : MonoBehaviour {
         Oxygen -= oxygenRate;
         if (Oxygen == 0)
         {
-            totalDamage += 10f;
+            totalDamage += 0.5f;
         }
     }
 
@@ -152,7 +152,7 @@ public class PlayerStats : MonoBehaviour {
         Sleep -= sleepRate;
         if (Sleep == 0)
         {
-            Debug.Log("Falling asleep...");
+            //Debug.Log("Falling asleep...");
         }
     }
 }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ab3ae705e28a64e9f6c28628dd4069, type: 3}
+  m_Name: Water Pump
+  m_EditorClassIdentifier: 
+  buildingName: Water Pump
+  buildingPrefab: {fileID: 1903251779289198, guid: 230a47e3fc4a1354785fda1f10744aaa,
+    type: 2}
+  type: 0
+  utilityBuilding: 1
+  buildingSprite: {fileID: 21300000, guid: 8a518536bb939fe45a23d0e35ea48eb2, type: 3}
+  description: The water pump pumps groundwater up to the surface so it can be used
+    for your base.
+  metal: 2
+  bioPlastic: 2
+  powerCons: 0
+  waterCons: 0
+  powerProd: 0
+  waterProd: 4
