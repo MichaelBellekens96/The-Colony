@@ -25,7 +25,7 @@ public class BuildingPlacement : MonoBehaviour {
     public float gridSnap = 8f;
 
     private Vector3 newCameraPos;
-    private bool placingObject = false;
+    public bool placingObject = false;
     public GameObject selectedBuilding;
     private CollisionDetector collisionDetector;
     private BuildingController buildingController;
@@ -64,6 +64,15 @@ public class BuildingPlacement : MonoBehaviour {
         }
         if (placingObject && input.turnLeft) TurnBuilding(-90f);
         else if (placingObject && input.turnRight) TurnBuilding(90f);
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit constructionHit;
+            if (Physics.Raycast(CurrentCursorLocation() + new Vector3(0, 50, 0), -Vector3.up, out constructionHit, 60f, 1 << 12))
+            {
+                Destroy(constructionHit.transform.parent.gameObject);
+            }
+        }
     }
 
     private void OnDisable()
@@ -71,6 +80,7 @@ public class BuildingPlacement : MonoBehaviour {
         if (selectedBuilding != null)
         {
             Destroy(selectedBuilding);
+            selectedBuilding = null;
         }
     }
 
@@ -86,6 +96,8 @@ public class BuildingPlacement : MonoBehaviour {
             newCameraPos = playerController.transform.position;
             newCameraPos.y = 50f;
             buildCamera.transform.position = newCameraPos;
+
+            placingObject = false;
         }
     }
 
@@ -210,6 +222,7 @@ public class BuildingPlacement : MonoBehaviour {
         selectedBuilding = Instantiate(currentBuildingData.buildingPrefab, selectedBuilding.transform.position, selectedBuilding.transform.rotation, marsBase);
         selectedBuilding.transform.parent = marsBase;
         selectedBuilding.transform.position = saveLocation + currentBuildingData.buildingPrefab.transform.position;
+        selectedBuilding.name = currentBuildingData.buildingName;
         //Debug.Log(selectedBuilding.transform.position.ToString());
 
         buildingController = selectedBuilding.GetComponent<BuildingController>();
@@ -252,6 +265,7 @@ public class BuildingPlacement : MonoBehaviour {
 
         constructionSite.GetComponentInChildren<ConstructionSite>().InitializeConstructionSite(currentBuildingData);
         constructionSite.GetComponentInChildren<ConstructionSite>().linkedBuilding = selectedBuilding;
+        BaseManager.Instance.ConstructionSites.Add(constructionSite);
 
         currentBuildingData = null;
         selectedBuilding = null;

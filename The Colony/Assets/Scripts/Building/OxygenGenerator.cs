@@ -39,11 +39,19 @@ public class OxygenGenerator : MonoBehaviour {
         {
             allBuildings = BaseManager.Instance.BuildingList;
             baseLength = BaseManager.Instance.BuildingList.Count;
+
             for (int i = 0; i < baseLength; i++)
             {
                 if (allBuildings[i].GetComponent<BuildingController>() && Vector3.Distance(transform.position, allBuildings[i].transform.position) < oxygenRadius)
                 {
                     surroundingBuildings.Add(allBuildings[i].GetComponent<BuildingController>());
+                }
+            }
+            for (int i = 0; i < BaseManager.Instance.DisabledBuildings.Count; i++)
+            {
+                if (BaseManager.Instance.DisabledBuildings[i].GetComponent<BuildingController>() && Vector3.Distance(transform.position, BaseManager.Instance.DisabledBuildings[i].transform.position) < oxygenRadius)
+                {
+                    surroundingBuildings.Add(BaseManager.Instance.DisabledBuildings[i].GetComponent<BuildingController>());
                 }
             }
             for (int i = 0; i < surroundingBuildings.Count; i++)

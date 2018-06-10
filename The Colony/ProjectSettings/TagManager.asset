@@ -11,6 +11,14 @@ TagManager:
   - AirlockPanel
   - Plants
   - FoodProcessor
+  - StorageMetal
+  - StorageMetalOre
+  - StorageBioPlastic
+  - StorageRawFood
+  - HydraulicPress
+  - BioplasticOven
+  - BunkBed
+  - SmallRock
   layers:
   - Default
   - TransparentFX

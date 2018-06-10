@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4997237802648326}
   - component: {fileID: 33991590812659156}
   - component: {fileID: 23613740086443104}
+  - component: {fileID: 64459545319270860}
   m_Layer: 9
   m_Name: SmallRock_c_1
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,9 +39,10 @@ GameObject:
   - component: {fileID: 4685505043100056}
   - component: {fileID: 33783840378335610}
   - component: {fileID: 23414325897514436}
+  - component: {fileID: 64547810124802050}
   m_Layer: 9
   m_Name: SmallRock_f_1
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,9 +57,10 @@ GameObject:
   - component: {fileID: 4331282024016452}
   - component: {fileID: 33737461824361806}
   - component: {fileID: 23853622751490174}
+  - component: {fileID: 64388571209855838}
   m_Layer: 9
   m_Name: SmallRock_d
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,9 +75,10 @@ GameObject:
   - component: {fileID: 4454556311620310}
   - component: {fileID: 33491492512078334}
   - component: {fileID: 23564077359693780}
+  - component: {fileID: 64081887675469914}
   m_Layer: 9
   m_Name: SmallRock_e
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,9 +159,10 @@ GameObject:
   - component: {fileID: 4372701225727786}
   - component: {fileID: 33960462996048896}
   - component: {fileID: 23280571377807678}
+  - component: {fileID: 64594832072391506}
   m_Layer: 9
   m_Name: SmallRock_e_1
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,9 +177,10 @@ GameObject:
   - component: {fileID: 4182989847584624}
   - component: {fileID: 33863593446204836}
   - component: {fileID: 23812523353850042}
+  - component: {fileID: 64046401715354712}
   m_Layer: 9
   m_Name: SmallRock_a
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,9 +195,10 @@ GameObject:
   - component: {fileID: 4548241730086164}
   - component: {fileID: 33684475896465318}
   - component: {fileID: 23402675581983584}
+  - component: {fileID: 64244906322625134}
   m_Layer: 9
   m_Name: SmallRock_c
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,9 +213,10 @@ GameObject:
   - component: {fileID: 4869927713981052}
   - component: {fileID: 33406126435644554}
   - component: {fileID: 23584468467532086}
+  - component: {fileID: 64406715653413948}
   m_Layer: 9
   m_Name: SmallRock_b
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,9 +231,10 @@ GameObject:
   - component: {fileID: 4820344065891430}
   - component: {fileID: 33503752167154156}
   - component: {fileID: 23438711073502124}
+  - component: {fileID: 64709135458157194}
   m_Layer: 9
   m_Name: SmallRock_a_1
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,9 +249,10 @@ GameObject:
   - component: {fileID: 4675416616626072}
   - component: {fileID: 33410871743336764}
   - component: {fileID: 23559924237348984}
+  - component: {fileID: 64342431666713082}
   m_Layer: 9
   m_Name: SmallRock_f
-  m_TagString: Untagged
+  m_TagString: SmallRock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -946,6 +956,146 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253092875518296}
   m_Mesh: {fileID: 4300012, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64046401715354712
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536540548368874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300016, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64081887675469914
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1336599010422562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64244906322625134
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565532468500692}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300010, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64342431666713082
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1816551297413068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64388571209855838
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326746760255424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300008, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64406715653413948
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597053305879268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300014, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64459545319270860
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253092875518296}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300012, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64547810124802050
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297897847703384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64594832072391506
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468276782269840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300006, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
+--- !u!64 &64709135458157194
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613176697411364}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300018, guid: ae350b415c1363442a4c66a6fe5801fa, type: 3}
 --- !u!65 &65035997925553114
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -79,6 +79,8 @@ public class InputManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.O)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.BioPlastic, playerController.transform.position, transform.rotation);
         if (Input.GetKeyDown(KeyCode.P)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, playerController.transform.position, transform.rotation);
+        if (Input.GetKeyDown(KeyCode.Keypad4)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.MetalOre, playerController.transform.position, transform.rotation);
+        if (Input.GetKeyDown(KeyCode.Keypad5)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.RawFood, playerController.transform.position, transform.rotation);
         if (Input.GetKeyDown(KeyCode.F1)) terrainManager.GenerateNewTerrain();
         if (Input.GetKeyDown(KeyCode.Keypad1)) BaseManager.Instance.DisableAllLights();
         if (Input.GetKeyDown(KeyCode.Keypad2)) BaseManager.Instance.EnableAllLights();

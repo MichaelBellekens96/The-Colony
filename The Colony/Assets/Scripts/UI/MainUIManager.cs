@@ -43,14 +43,21 @@ public class MainUIManager : MonoBehaviour {
 
     [Header("Interaction")]
     public Text interactionText;
+    public Image sleepPanel;
 
     public PlayerController playerController;
     public PlayerStats playerStats;
     public BuildingPlacement buildingManager;
     public BaseStatsMenu baseStatsMenu;
+    public SunMoonRotation sunRotation;
+    public ResourceManager resourceManager;
+    public TerrainManager terrainManager;
+    public BaseManager baseManager;
 
     private Color green = Color.green;
     private Color red = Color.red;
+    public Color sleeping = new Color(0, 0, 0, 1);
+    public Color awake = new Color(0, 0, 0, 0);
 
     private void Awake()
     {
@@ -89,6 +96,7 @@ public class MainUIManager : MonoBehaviour {
             playerAudioListener.enabled = true;
             toolsPanel.SetActive(true);
             statsPanel.SetActive(true);
+            resourcesPanel.SetActive(true);
             baseStatsMenu.enabled = false;
             baseStatsMenu.gameObject.SetActive(false);
 
@@ -105,6 +113,7 @@ public class MainUIManager : MonoBehaviour {
             playerAudioListener.enabled = false;
             toolsPanel.SetActive(false);
             statsPanel.SetActive(false);
+            resourcesPanel.SetActive(true);
             baseStatsMenu.enabled = false;
             baseStatsMenu.gameObject.SetActive(false);
 
@@ -269,5 +278,59 @@ public class MainUIManager : MonoBehaviour {
     public void ToggleInteractionText(bool value)
     {
         interactionText.gameObject.SetActive(value);
+    }
+
+    public void LoadPreviousSave()
+    {
+        playerStats.Load();
+        resourceManager.Load();
+        baseManager.Load();
+        terrainManager.Load();
+        sunRotation.Load();
+    }
+
+    public void GoToSleep()
+    {
+        StartCoroutine(SleepTransition());
+    }
+
+    private IEnumerator SleepTransition()
+    {
+        float transitionTime = 3f;
+        float elapsedTime = 0;
+        playerController.enabled = false;
+
+        while (elapsedTime < transitionTime)
+        {
+            elapsedTime += Time.deltaTime;
+            sleepPanel.color = Color.Lerp(awake, sleeping, Mathf.Clamp(elapsedTime / transitionTime, 0, 1));
+            
+            yield return null;
+        }
+
+        playerStats.Sleep = 100;
+        sunRotation.timeScale = 40;
+
+        yield return new WaitForSeconds(5f);
+
+        // Save all data
+        playerStats.Save();
+        resourceManager.Save();
+        baseManager.Save();
+        terrainManager.Save();
+        sunRotation.Save();
+
+        sunRotation.timeScale = 0.5f;
+        elapsedTime = 0;
+
+        while (elapsedTime < transitionTime)
+        {
+            elapsedTime += Time.deltaTime;
+            sleepPanel.color = Color.Lerp(sleeping, awake, Mathf.Clamp(elapsedTime / transitionTime, 0, 1));
+            
+            yield return null;
+        }
+
+        playerController.enabled = true;
     }
 }

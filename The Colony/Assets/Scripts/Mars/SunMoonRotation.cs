@@ -10,13 +10,11 @@ public class SunMoonRotation : MonoBehaviour {
     public GameObject Sun;
     public Light sunLight;
 
-    private void Start()
-    {
-        //sunLight = GetComponent<Light>();
-    }
-
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.F9)) Save();
+        if (Input.GetKeyDown(KeyCode.F10)) Load();
+
         Moon.transform.RotateAround(Vector3.zero, Vector3.right, timeScale * Time.deltaTime);
         Moon.transform.LookAt(Vector3.zero);
 
@@ -33,6 +31,23 @@ public class SunMoonRotation : MonoBehaviour {
         else
         {
             sunLight.intensity = 1;
+        }
+    }
+
+    public void Save()
+    {
+        Debug.Log("Saving sky...");
+        SaveLoadManager.SaveSunMoon(this);
+    }
+
+    public void Load()
+    {
+        Debug.Log("Loading sky...");
+        SunMoonData data = SaveLoadManager.LoadSunMoon();
+        if (data != null)
+        {
+            Sun.transform.position = new Vector3(0, data.sunPosY, data.sunPosZ);
+            Moon.transform.position = new Vector3(0, data.moonPosY, data.moonPosZ);
         }
     }
 }

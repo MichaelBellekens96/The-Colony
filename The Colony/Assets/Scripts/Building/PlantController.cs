@@ -17,6 +17,14 @@ public class PlantController : MonoBehaviour {
 
     public PlayerController playerController;
 
+    private void Start()
+    {
+        for (int i = 0; i < allPlants.Length; i++)
+        {
+            allPlants[i].transform.localScale = Vector3.zero;
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))

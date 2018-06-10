@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 65582920000006816}
   m_Layer: 11
   m_Name: StorageMachine_2
-  m_TagString: Untagged
+  m_TagString: StorageMetal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1602,7 +1602,7 @@ GameObject:
   - component: {fileID: 65649466637542518}
   m_Layer: 11
   m_Name: StorageMachine_2
-  m_TagString: Untagged
+  m_TagString: StorageMetalOre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4583,7 +4583,7 @@ GameObject:
   - component: {fileID: 65866451110000816}
   m_Layer: 11
   m_Name: StorageMachine_2
-  m_TagString: Untagged
+  m_TagString: StorageBioPlastic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4867,7 +4867,7 @@ GameObject:
   - component: {fileID: 65322944196228706}
   m_Layer: 11
   m_Name: StorageMachine_2
-  m_TagString: Untagged
+  m_TagString: StorageRawFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

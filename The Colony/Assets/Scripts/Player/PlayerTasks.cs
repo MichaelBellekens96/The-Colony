@@ -33,7 +33,7 @@ public class PlayerTasks : MonoBehaviour {
                     timer = 0;
                     //Destroy(hit.transform.gameObject);
                     Debug.Log("Instantiate Metal Resource Box...");
-                    ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, transform.position + transform.right, transform.rotation);
+                    ResourceManager.Instance.CreateResourceBox(ResourceTypes.MetalOre, transform.position + transform.right, transform.rotation);
                 }
             }
             else
@@ -54,7 +54,7 @@ public class PlayerTasks : MonoBehaviour {
         {
             if (hit.transform.tag == "Contruction Site")
             {
-                hit.transform.GetComponent<ConstructionSite>().ConstructBuilding(Time.deltaTime);
+                hit.transform.GetComponent<ConstructionSite>().ConstructBuilding(Time.deltaTime * 5);
                 MainUIManager.Instance.UpdateBuildPercentage(hit.transform.GetComponent<ConstructionSite>().buildPercentage);
             }
         }
@@ -78,6 +78,12 @@ public class PlayerTasks : MonoBehaviour {
     {
         grabbedObject.transform.parent = null;
         grabbedObject.AddComponent<Rigidbody>();
+        StartCoroutine(DelayDroppedObject());
+    }
+
+    private IEnumerator DelayDroppedObject()
+    {
+        yield return new WaitForSeconds(0.1f);
         isCarryingObject = false;
     }
 

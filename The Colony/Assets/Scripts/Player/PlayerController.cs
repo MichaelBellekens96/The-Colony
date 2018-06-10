@@ -44,15 +44,19 @@ public class PlayerController : MonoBehaviour {
     private static Camera playerCamera;
     private RaycastHit hit;
     private RaycastHit collisionHit;
+    private RaycastHit inBaseHit;
     private string tagHit;
     private GameObject hitGameObject;
     private Vector3 startPosition = new Vector3(0, 0.8f, 0);
     public bool insideBase;
+    private bool machineInRange;
 
     public float testFloat;
     public Vector3 lastPosition = Vector3.zero;
     public float v_input;
     public float playerSpeed = 0;
+    private bool isSleeping = false;
+
 
     // Use this for initialization
     void Start () {
@@ -72,7 +76,11 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         LookRotation(transform, playerCamera.transform);
-        if (input.interact && playerTasks.isCarryingObject) playerTasks.DropObject();
+        if (input.interact && playerTasks.isCarryingObject && !machineInRange)
+        {
+            Debug.Log("Dropped ResourceBox");
+            playerTasks.DropObject();
+        }
         if (input.mouse_0) CheckTool(indexTool);
         if (input.flashlight) ToggleFlashlight();
 
@@ -82,6 +90,8 @@ public class PlayerController : MonoBehaviour {
             playerStats.Heal(5f);
             Debug.Log("Healed player with 5");
         }
+        if (Input.GetKeyDown(KeyCode.F9)) playerStats.Save();
+        if (Input.GetKeyDown(KeyCode.F10)) playerStats.Load();
         #endregion
     }
 
@@ -177,6 +187,7 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5, Color.red);
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out collisionHit, 5f, layermask))
         {
+            MainUIManager.Instance.ToggleInteractionText(false);
             if (collisionHit.transform.gameObject.layer == 12)
             {
                 if (!MainUIManager.Instance.constructionPanel.activeSelf || collisionHit.transform.gameObject != lastConstructionSite)
@@ -200,6 +211,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (input.interact && !playerTasks.isCarryingObject && indexTool == 0)
                 {
+                    Debug.Log("ResourceBox picked up");
                     playerTasks.CarryObject(collisionHit.transform.gameObject);
                     StartCoroutine(DelayCarryObject());
 
@@ -280,28 +292,32 @@ public class PlayerController : MonoBehaviour {
                     }
                 }
             }
-            else if (collisionHit.transform.tag == "FoodProcessor")
+            else if (collisionHit.transform.tag == "HydraulicPress")
             {
-                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                if (playerTasks.isCarryingObject && !collisionHit.transform.GetComponent<HydraulicPress>().processingMetalOre)
                 {
-                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.RawFood)
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.MetalOre)
                     {
-                        MainUIManager.Instance.SetInteractionText("Press 'F' to add 'Raw Food' to the 'Food Processor'");
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to convert your 'Metal Ore' to 'Metal'");
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
-                            collisionHit.transform.GetComponent<FoodProcessor>().AddMeal(playerTasks.grabbedObject);
+                            collisionHit.transform.GetComponent<HydraulicPress>().StartPress();
+                            ResourceManager.Instance.RemoveResourceBox(playerTasks.grabbedObject.transform);
                             playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
                         }
                     }
                 }
-                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numMeals > 0)
+                else if (!playerTasks.isCarryingObject && collisionHit.transform.GetComponent<HydraulicPress>().metalReady)
                 {
-                    MainUIManager.Instance.SetInteractionText("Press 'F' to get a 'Meal' from the 'Food Processor'");
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to receive your 'Metal'");
                     MainUIManager.Instance.ToggleInteractionText(true);
                     if (input.interact)
                     {
-                        collisionHit.transform.GetComponent<FoodProcessor>().PrepareMeal();
+                        collisionHit.transform.GetComponent<HydraulicPress>().GrabMetalBox();
+                        ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, transform.position + Vector3.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
                     }
                 }
                 else
@@ -309,12 +325,241 @@ public class PlayerController : MonoBehaviour {
                     MainUIManager.Instance.ToggleInteractionText(false);
                 }
             }
-            else
+            else if (collisionHit.transform.tag == "BioplasticOven")
             {
-                MainUIManager.Instance.ToggleInteractionText(false);
+                if (playerTasks.isCarryingObject && !collisionHit.transform.GetComponent<BioPlasticOven>().ovenIsBaking)
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.RawFood)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to convert your 'Raw Food' to 'Bioplastic'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            collisionHit.transform.GetComponent<BioPlasticOven>().StartOven();
+                            ResourceManager.Instance.RemoveResourceBox(playerTasks.grabbedObject.transform);
+                            playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
+                        }
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && collisionHit.transform.GetComponent<BioPlasticOven>().BioPlasticReady)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to receive your 'Bioplastic'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        collisionHit.transform.GetComponent<BioPlasticOven>().GrabBioPlastic();
+                        ResourceManager.Instance.CreateResourceBox(ResourceTypes.BioPlastic, transform.position + Vector3.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
             }
+            else if (collisionHit.transform.tag == "FoodProcessor")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.RawFood)
+                    {
+                        machineInRange = true;
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to add 'Raw Food' to the 'Food Processor'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            Debug.Log("Added meal to foodprocessor");
+                            collisionHit.transform.GetComponent<FoodProcessor>().AddMeal(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                            machineInRange = false;
+                        }
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numMeals > 0)
+                {
+                    machineInRange = false;
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get a 'Meal' from the 'Food Processor'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        collisionHit.transform.GetComponent<FoodProcessor>().PrepareMeal();
+                        playerStats.Hunger += 50;
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "StorageMetal")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.Metal)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to store your 'Metal'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            ResourceManager.Instance.MetalBox.Remove(playerTasks.grabbedObject.transform);
+                            Destroy(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
+                            ResourceManager.Instance.numStoredMetalBoxes++;
+                        }
+                    }
+                    else
+                    {
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numStoredMetalBoxes > 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get 'Metal'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        ResourceManager.Instance.CreateExistingResourceBox(ResourceTypes.Metal, transform.position + transform.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                        ResourceManager.Instance.numStoredMetalBoxes--;
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "StorageMetalOre")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.MetalOre)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to store your 'Metal Ore'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            ResourceManager.Instance.MetalOreBox.Remove(playerTasks.grabbedObject.transform);
+                            Destroy(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
+                            ResourceManager.Instance.numStoredMetalBoxes++;
+                        }
+                    }
+                    else
+                    {
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numStoredMetalOreBoxes > 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get 'Metal Ore'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        ResourceManager.Instance.CreateExistingResourceBox(ResourceTypes.MetalOre, transform.position + transform.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                        ResourceManager.Instance.numStoredMetalOreBoxes--;
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "StorageRawFood")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.RawFood)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to store your 'RawFood'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            ResourceManager.Instance.RawFoodBox.Remove(playerTasks.grabbedObject.transform);
+                            Destroy(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
+                            ResourceManager.Instance.numStoredRawFoodBoxes++;
+                        }
+                    }
+                    else
+                    {
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numStoredRawFoodBoxes > 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get 'RawFood'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        ResourceManager.Instance.CreateExistingResourceBox(ResourceTypes.RawFood, transform.position + transform.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                        ResourceManager.Instance.numStoredRawFoodBoxes--;
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "StorageBioPlastic")
+            {
+                if (playerTasks.isCarryingObject && playerTasks.grabbedObject.GetComponent<ResourceBox>())
+                {
+                    if (playerTasks.grabbedObject.GetComponent<ResourceBox>().type == ResourceTypes.BioPlastic)
+                    {
+                        MainUIManager.Instance.SetInteractionText("Press 'F' to store your 'Bioplastic'");
+                        MainUIManager.Instance.ToggleInteractionText(true);
+                        if (input.interact)
+                        {
+                            ResourceManager.Instance.BioPlasticBox.Remove(playerTasks.grabbedObject.transform);
+                            Destroy(playerTasks.grabbedObject);
+                            playerTasks.isCarryingObject = false;
+                            MainUIManager.Instance.ToggleInteractionText(false);
+                            ResourceManager.Instance.numStoredBioplasticBoxes++;
+                        }
+                    }
+                    else
+                    {
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                    }
+                }
+                else if (!playerTasks.isCarryingObject && ResourceManager.Instance.numStoredBioplasticBoxes > 0)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to get 'Bioplastic'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                    if (input.interact)
+                    {
+                        ResourceManager.Instance.CreateExistingResourceBox(ResourceTypes.BioPlastic, transform.position + transform.forward * 0.5f, transform.rotation);
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                        ResourceManager.Instance.numStoredBioplasticBoxes--;
+                    }
+                }
+                else
+                {
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+            }
+            else if (collisionHit.transform.tag == "BunkBed")
+            {
+                if (!playerTasks.isCarryingObject)
+                {
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to use 'Bunkbed'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
 
-            if (collisionHit.transform.gameObject.layer == 11)
+                    if (input.interact)
+                    {
+                        MainUIManager.Instance.GoToSleep();
+                        MainUIManager.Instance.ToggleInteractionText(false);
+                        playerStats.Sleep = 100;
+                    }
+                }
+            }
+            else if (collisionHit.transform.gameObject.layer == 11)
             {
                 GameObject building = collisionHit.transform.gameObject;
                 if (Input.GetKeyDown(KeyCode.B))
@@ -328,7 +573,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Enabling building...");
                 }
             }
-            if (collisionHit.transform.tag == "AirlockPanel")
+            else if (collisionHit.transform.tag == "AirlockPanel")
             {
                 if (input.interact && !playerTasks.isCarryingObject)
                 {
@@ -342,10 +587,15 @@ public class PlayerController : MonoBehaviour {
                 }
                 
             }
+            else
+            {
+                MainUIManager.Instance.ToggleInteractionText(false);
+            }
         }
-           
-        
-        
+        else
+        {
+            MainUIManager.Instance.ToggleInteractionText(false);
+        }
     }
 
     public void LookRotation(Transform character, Transform camera)
@@ -420,27 +670,6 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    /*private void OnTriggerStay(Collider other)
-    {
-        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5f, Color.yellow);
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f))
-        {
-            tagHit = hit.transform.gameObject.tag;
-            hitGameObject = hit.transform.gameObject;
-
-            switch (tagHit)
-            {
-                case "ResourceBox":
-                    if (input.interact && !playerTasks.isCarryingObject) playerTasks.CarryObject(hitGameObject);
-                    Debug.Log("Hitting resource box");
-                    // Show UI hint
-                    break;
-                default:
-                    break;
-            }
-        }
-    }*/
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Base")
@@ -449,13 +678,17 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    public bool CheckStillInBase()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Base"))
+        if (Physics.Raycast(transform.position, -transform.up, out inBaseHit, 3f, 1 << LayerMask.NameToLayer("Base")))
         {
-            rb.MovePosition(lastPosition - new Vector3(0, 0, 2));
+            return true;
         }
-    }*/
+        else
+        {
+            return false;
+        }
+    }
 
     public IEnumerator DelayCarryObject()
     {

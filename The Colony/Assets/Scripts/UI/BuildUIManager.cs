@@ -25,6 +25,9 @@ public class BuildUIManager : MonoBehaviour {
     public Text resource2;
     public Image resourceSprite2;
 
+    public Text powerConsProd;
+    public Text waterConsProd;
+
     private void Awake()
     {
         buildManager = GetComponent<BuildingPlacement>();
@@ -45,9 +48,6 @@ public class BuildUIManager : MonoBehaviour {
             currentButton.onClick.AddListener(() => buildManager.CreateBuilding(buildingList[n]));
             currentButton.gameObject.AddComponent<BuildingButtonEvents>();
             allButtons[n] = currentButton;
-
-            //Debug.Log(n);
-            //Debug.Log(newPosition);
         }
 
         for (int i = 0; i < buildingList.Count; i++)
@@ -58,6 +58,7 @@ public class BuildUIManager : MonoBehaviour {
             allButtons[i].GetComponentInChildren<Text>().text = buildingList[i].buildingName;
             allButtons[i].GetComponentInChildren<Image>().sprite = buildingList[i].buildingSprite;
         }
+
         buildingPanel.gameObject.SetActive(false);
     }
 
@@ -78,6 +79,16 @@ public class BuildUIManager : MonoBehaviour {
             resource2.transform.parent.gameObject.SetActive(true);
             resource2.text = data.bioPlastic.ToString();
         }
+        if (data.utilityBuilding)
+        {
+            powerConsProd.text = "Power Production: " + data.powerProd.ToString();
+            waterConsProd.text = "Water Prodcution: " + data.waterProd.ToString();
+        }
+        else
+        {
+            powerConsProd.text = "Power Consumption: " + data.powerCons.ToString();
+            waterConsProd.text = "Water Consumption: " + data.waterCons.ToString();
+        }
     }
 
     public void ResetBuildingData()
@@ -89,6 +100,9 @@ public class BuildUIManager : MonoBehaviour {
         resource1.text = "0";
         resource2.transform.parent.gameObject.SetActive(false);
         resource2.text = "0";
+
+        waterConsProd.text = "";
+        powerConsProd.text = "";
 
         buildingPanel.SetActive(false);
     }

@@ -80,6 +80,7 @@ public class ConstructionSite : MonoBehaviour {
         BaseManager.Instance.RecalculateOxygen();
 
         linkedBuilding.SetActive(true);
+        BaseManager.Instance.ConstructionSites.Remove(gameObject.transform.parent.gameObject);
         Destroy(gameObject.transform.parent.gameObject);
     }
 

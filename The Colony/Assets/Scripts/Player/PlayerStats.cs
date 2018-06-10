@@ -71,12 +71,46 @@ public class PlayerStats : MonoBehaviour {
 
     private float totalDamage = 0;
 
-    private PlayerController controller;
+    public PlayerController controller;
     
     void Start()
     {
         controller = GetComponent<PlayerController>();
         InvokeRepeating("LoopAllStats", 5, 5);
+    }
+
+    public void Save()
+    {
+        Debug.Log("Saving player data...");
+        SaveLoadManager.SavePlayer(this);
+    }
+
+    public void Load()
+    {
+        Debug.Log("Loading player data...");
+        PlayerData data = SaveLoadManager.LoadPlayer();
+        if (data != null)
+        {
+            gameObject.SetActive(false);
+
+            Health = data.health;
+            Hunger = data.hunger;
+            Oxygen = data.oxygen;
+            Sleep = data.sleep;
+
+            controller.insideBase = data.inBase;
+
+            hungerRate = data.hungerRate;
+            oxygenRate = data.oxygenRate;
+            sleepRate = data.sleepRate;
+
+            MainUIManager.Instance.UpdateStatsPanel(Health, Oxygen, Hunger, Thirst, Sleep);
+
+            transform.position = new Vector3(data.posX, data.posY, data.posZ);
+            transform.rotation = Quaternion.Euler(data.rotX, data.rotY, data.rotZ);
+
+            gameObject.SetActive(true);
+        }
     }
 
     public void Heal(float _extraHealth)
@@ -106,6 +140,15 @@ public class PlayerStats : MonoBehaviour {
         DecreaseThirst();
         DecreaseOxygen();
         DecreaseSleep();
+
+        if (totalDamage > 0)
+        {
+            Damage(totalDamage);
+        }
+        else
+        {
+            Heal(5f);
+        }
 
         Damage(totalDamage);
 
