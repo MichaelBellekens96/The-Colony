@@ -281,6 +281,11 @@ public class BaseManager : MonoBehaviour {
             buildingController.emissionMaterial[i].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
         }
 
+        if (building.GetComponent<Kitchen>())
+        {
+            building.GetComponent<Kitchen>().PlaySound();
+        }
+
         buildingController.buildingEnabled = true;
         CheckUtilities(building);
     }
@@ -368,7 +373,12 @@ public class BaseManager : MonoBehaviour {
         RecalculateOxygen();
         if (building.GetComponent<OxygenGenerator>())
         {
+            building.GetComponent<OxygenGenerator>().StopSounds();
             DisableBuildingsWithNoOxygen();
+        }
+        if (building.GetComponent<Kitchen>())
+        {
+            building.GetComponent<Kitchen>().StopPlaying();
         }
     }
 
@@ -519,6 +529,10 @@ public class BaseManager : MonoBehaviour {
                 building.GetComponent<BuildingController>().hasWater = true;
                 building.GetComponent<BuildingController>().buildingEnabled = true;
 
+                if (building.GetComponent<OxygenGenerator>())
+                {
+                    building.GetComponent<OxygenGenerator>().PlaySounds();
+                }
                 //RecalculateOxygen();
             }
             else

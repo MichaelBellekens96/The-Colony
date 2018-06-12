@@ -22,6 +22,8 @@ public class ConstructionSite : MonoBehaviour {
 
     public BuildingData buildingData;
 
+    private bool playingWelderSound = false;
+
     public void InitializeConstructionSite(BuildingData data)
     {
         numNeededMetal = data.metal;
@@ -48,12 +50,25 @@ public class ConstructionSite : MonoBehaviour {
     {
         if (allResourcesPresent)
         {
+            if (playingWelderSound == false)
+            {
+                AudioManager.Instance.Play("Welder");
+                playingWelderSound = true;
+            }
             buildPercentage += value;
             if (buildPercentage >= 10)
             {
                 PlaceBuilding();
+                AudioManager.Instance.Stop("Welder");
+                playingWelderSound = false;
             }
         }
+    }
+
+    public void StopWelderSound()
+    {
+        AudioManager.Instance.Stop("Welder");
+        playingWelderSound = false;
     }
 
     // Destroy building site and enable appropriate building
@@ -78,6 +93,8 @@ public class ConstructionSite : MonoBehaviour {
 
         BaseManager.Instance.AddBuildingToList(linkedBuilding, buildingData);
         BaseManager.Instance.RecalculateOxygen();
+
+        AudioManager.Instance.Play("Enable_Building");
 
         linkedBuilding.SetActive(true);
         BaseManager.Instance.ConstructionSites.Remove(gameObject.transform.parent.gameObject);

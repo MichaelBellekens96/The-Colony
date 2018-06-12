@@ -20,6 +20,9 @@ public class HydraulicPress : MonoBehaviour {
     public Vector3 pressClosed;
     public Vector3 pressOpen;
 
+    public AudioSource up;
+    public AudioSource down;
+
     public float currentProduction;
 
     private void Update()
@@ -56,15 +59,23 @@ public class HydraulicPress : MonoBehaviour {
         currentProduction = 0;
         while (currentProduction < productionTime)
         {
+            down.Play();
+
+            yield return new WaitForSeconds(0.6f);
+
             while (press.transform.localPosition != pressClosed)
             {
                 press.transform.localPosition = Vector3.MoveTowards(press.transform.localPosition, pressClosed, 3 * Time.deltaTime);
                 currentProduction += Time.deltaTime;
                 yield return null;
             }
+
+            yield return new WaitForSeconds(0.2f);
+            up.Play();
+
             while (press.transform.localPosition != pressOpen)
             {
-                press.transform.localPosition = Vector3.MoveTowards(press.transform.localPosition, pressOpen, 1 * Time.deltaTime);
+                press.transform.localPosition = Vector3.MoveTowards(press.transform.localPosition, pressOpen, 0.4f * Time.deltaTime);
                 currentProduction += Time.deltaTime;
                 yield return null;
             }

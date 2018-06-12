@@ -13,6 +13,9 @@ public class PlayerTasks : MonoBehaviour {
     public float tempOxygenRate;
     public float timer = 0;
 
+    public bool playingDrillSound = false;
+    public bool playingWelderSound = false;
+
     private void Start()
     {
         playerCamera = GetComponentInChildren<Camera>();
@@ -27,6 +30,12 @@ public class PlayerTasks : MonoBehaviour {
         {
             if (hit.transform.CompareTag("Metal Ore"))
             {
+                if (playingDrillSound == false)
+                {
+                    AudioManager.Instance.Play("Drill");
+                    playingDrillSound = true;
+                }
+
                 timer += Time.fixedDeltaTime;
                 if (timer >= 3)
                 {
@@ -39,11 +48,15 @@ public class PlayerTasks : MonoBehaviour {
             else
             {
                 timer = 0;
+                AudioManager.Instance.Stop("Drill");
+                playingDrillSound = false;
             }
         }
         else
         {
             timer = 0;
+            AudioManager.Instance.Stop("Drill");
+            playingDrillSound = false;
         }
     }
 
@@ -57,6 +70,14 @@ public class PlayerTasks : MonoBehaviour {
                 hit.transform.GetComponent<ConstructionSite>().ConstructBuilding(Time.deltaTime * 5);
                 MainUIManager.Instance.UpdateBuildPercentage(hit.transform.GetComponent<ConstructionSite>().buildPercentage);
             }
+            else
+            {
+                hit.transform.GetComponent<ConstructionSite>().StopWelderSound();
+            }
+        }
+        else
+        {
+            AudioManager.Instance.Stop("Welder");
         }
     }
 

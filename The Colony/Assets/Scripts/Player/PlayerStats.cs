@@ -143,6 +143,7 @@ public class PlayerStats : MonoBehaviour {
 
         if (totalDamage > 0)
         {
+            //AudioManager.Instance.Play("Pain");
             Damage(totalDamage);
         }
         else

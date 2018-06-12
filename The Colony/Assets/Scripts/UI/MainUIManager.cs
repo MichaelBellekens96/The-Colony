@@ -16,8 +16,6 @@ public class MainUIManager : MonoBehaviour {
     public Image oxygenColor;
     public Slider hungerSlider;
     public Image hungerColor;
-    public Slider thirstSlider;
-    public Image thirstColor;
     public Slider sleepSlider;
     public Image sleepColor;
 
@@ -28,7 +26,6 @@ public class MainUIManager : MonoBehaviour {
     public Text bioPlasticText;
     public Text rawFoodText;
     public Text mealText;
-    public Text drinkText;
 
     [Header("ToolsPanel")]
     public GameObject toolsPanel;
@@ -53,6 +50,7 @@ public class MainUIManager : MonoBehaviour {
     public ResourceManager resourceManager;
     public TerrainManager terrainManager;
     public BaseManager baseManager;
+    public PauseMenu pauseScreen;
 
     private Color green = Color.green;
     private Color red = Color.red;
@@ -85,6 +83,7 @@ public class MainUIManager : MonoBehaviour {
         Camera playerCamera = playerController.GetComponentInChildren<Camera>();
         AudioListener playerAudioListener = playerController.GetComponentInChildren<AudioListener>();
         Camera buildCamera = buildingManager.GetComponentInChildren<Camera>();
+        AudioManager.Instance.Play("Btn_Press");
 
         // If buildingmenu is already active, turn it off
         if (active)
@@ -129,6 +128,7 @@ public class MainUIManager : MonoBehaviour {
         AudioListener playerAudioListener = playerController.GetComponentInChildren<AudioListener>();
         Camera buildCamera = buildingManager.GetComponentInChildren<Camera>();
         Camera statsCamera = baseStatsMenu.statsMenuCamera;
+        AudioManager.Instance.Play("Btn_Press");
 
         // If Statsmenu is active disable it
         if (baseStatsMenu.gameObject.activeSelf)
@@ -188,10 +188,6 @@ public class MainUIManager : MonoBehaviour {
         if (playerStats.Hunger > 50) hungerColor.color = Color.Lerp(Color.yellow, green, (playerStats.Hunger - 50) / 50);
         if (playerStats.Hunger < 50) hungerColor.color = Color.Lerp(red, Color.yellow, playerStats.Hunger / 50);
 
-        thirstSlider.value = playerStats.Thirst;
-        if (playerStats.Thirst > 50) thirstColor.color = Color.Lerp(Color.yellow, green, (playerStats.Thirst - 50) / 50);
-        if (playerStats.Thirst < 50) thirstColor.color = Color.Lerp(red, Color.yellow, playerStats.Thirst / 50);
-
         sleepSlider.value = playerStats.Sleep;
         if (playerStats.Sleep > 50) sleepColor.color = Color.Lerp(Color.yellow, green, (playerStats.Sleep - 50) / 50);
         if (playerStats.Sleep < 50) sleepColor.color = Color.Lerp(red, Color.yellow, playerStats.Sleep / 50);
@@ -211,10 +207,6 @@ public class MainUIManager : MonoBehaviour {
         hungerSlider.value = hunger;
         if (hunger > 50) hungerColor.color = Color.Lerp(Color.yellow, green, (hunger - 50) / 50);
         if (hunger < 50) hungerColor.color = Color.Lerp(red, Color.yellow, hunger / 50);
-
-        thirstSlider.value = thirst;
-        if (thirst > 50) thirstColor.color = Color.Lerp(Color.yellow, green, (thirst - 50) / 50);
-        if (thirst < 50) thirstColor.color = Color.Lerp(red, Color.yellow, thirst / 50);
 
         sleepSlider.value = sleep;
         if (sleep > 50) sleepColor.color = Color.Lerp(Color.yellow, green, (sleep - 50) / 50);
@@ -250,7 +242,6 @@ public class MainUIManager : MonoBehaviour {
         bioPlasticText.text = bioPlastic.ToString();
         rawFoodText.text = rawFood.ToString();
         mealText.text = meals.ToString();
-        drinkText.text = drinks.ToString();
     }
 
     public void UpdateConstructionPanel(int metal, int bioPlastic, string name)
@@ -280,13 +271,29 @@ public class MainUIManager : MonoBehaviour {
         interactionText.gameObject.SetActive(value);
     }
 
+    public void TogglePauseScreen()
+    {
+        if (pauseScreen.gameObject.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        pauseScreen.gameObject.SetActive(!pauseScreen.gameObject.activeSelf);
+        playerController.enabled = !playerController.enabled;
+    }
+
     public void LoadPreviousSave()
     {
+        terrainManager.Load();
         playerStats.Load();
         resourceManager.Load();
-        baseManager.Load();
-        terrainManager.Load();
         sunRotation.Load();
+        baseManager.Load();
     }
 
     public void GoToSleep()
@@ -310,6 +317,8 @@ public class MainUIManager : MonoBehaviour {
 
         playerStats.Sleep = 100;
         sunRotation.timeScale = 40;
+
+        AudioManager.Instance.Play("Yawning");
 
         yield return new WaitForSeconds(5f);
 

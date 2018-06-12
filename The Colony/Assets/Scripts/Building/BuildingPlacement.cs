@@ -174,6 +174,8 @@ public class BuildingPlacement : MonoBehaviour {
             }
         }
 
+        //AudioManager.Instance.Play("Btn_Press");
+
         //silhouette = selectedBuilding.GetComponent<Renderer>().material;
         placingObject = true;
     }
@@ -209,9 +211,16 @@ public class BuildingPlacement : MonoBehaviour {
             if (input.mouse_0_down)
             {
                 PlaceBuilding();
+                AudioManager.Instance.Play("Building_Placed");
             }
         }
-        if (input.cancel) CancelBuild();
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (selectedBuilding != null)
+            {
+                CancelBuild();
+            }
+        }
     }
 
     private void PlaceBuilding()

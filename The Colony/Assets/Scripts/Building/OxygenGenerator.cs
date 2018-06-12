@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class OxygenGenerator : MonoBehaviour {
 
@@ -11,11 +12,19 @@ public class OxygenGenerator : MonoBehaviour {
     private int baseLength;
     private List<GameObject> allBuildings;
 
+    public AudioSource audioSource;
+    private bool soundPlaying = false;
+
 	// Use this for initialization
 	void Start () {
         buildingController = GetComponent<BuildingController>();
         if (buildingController.buildingEnabled)
         {
+            if (!soundPlaying)
+            {
+                audioSource.Play();
+                soundPlaying = true;
+            }
             allBuildings = BaseManager.Instance.BuildingList;
             baseLength = BaseManager.Instance.BuildingList.Count;
             for (int i = 0; i < baseLength; i++)
@@ -35,6 +44,7 @@ public class OxygenGenerator : MonoBehaviour {
     public void SpreadOxygen()
     {
         buildingController = GetComponent<BuildingController>();
+        
         if (buildingController.buildingEnabled)
         {
             allBuildings = BaseManager.Instance.BuildingList;
@@ -59,5 +69,17 @@ public class OxygenGenerator : MonoBehaviour {
                 surroundingBuildings[i].hasOxygen = true;
             }
         }
+    }
+
+    public void PlaySounds()
+    {
+        soundPlaying = false;
+        audioSource.Stop();
+    }
+
+    public void StopSounds()
+    {
+        soundPlaying = false;
+        audioSource.Stop();
     }
 }

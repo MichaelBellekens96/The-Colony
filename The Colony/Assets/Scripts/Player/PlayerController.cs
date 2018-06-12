@@ -56,7 +56,12 @@ public class PlayerController : MonoBehaviour {
     public float v_input;
     public float playerSpeed = 0;
     private bool isSleeping = false;
+    public GameObject hittingObject;
 
+    private bool DirtWalking = false;
+    private bool DirtRunning = false;
+    private bool MetalRunning = false;
+    private bool MetalWalking = false;
 
     // Use this for initialization
     void Start () {
@@ -82,6 +87,12 @@ public class PlayerController : MonoBehaviour {
             playerTasks.DropObject();
         }
         if (input.mouse_0) CheckTool(indexTool);
+        else
+        {
+            AudioManager.Instance.Stop("Drill");
+            AudioManager.Instance.Stop("Welder");
+            playerTasks.playingWelderSound = false;
+        }
         if (input.flashlight) ToggleFlashlight();
 
         #region TestingCode
@@ -136,6 +147,36 @@ public class PlayerController : MonoBehaviour {
             playerCamera.transform.localPosition = startPosition + new Vector3(0.0f, 0.03f * Mathf.Sin(20 * Time.time), 0.0f);
         }
 
+        if (input.v_Axis != 0 && speed == walkSpeed || input.h_Axis != 0 && speed == walkSpeed)
+        {
+            AudioManager.Instance.Stop("Running_Sand");
+            DirtRunning = false;
+            if (DirtWalking == false)
+            {
+                Debug.Log("Playing walking dirt sound");
+                DirtWalking = true;
+                AudioManager.Instance.Play("Walking_Sand");
+            }
+        }
+        else if (input.v_Axis != 0 && speed == sprintSpeed || input.h_Axis != 0 && speed == sprintSpeed)
+        {
+            AudioManager.Instance.Stop("Walking_Sand");
+            DirtWalking = false;
+            if (DirtRunning == false)
+            {
+                Debug.Log("Playing running dirt sound");
+                DirtRunning = true;
+                AudioManager.Instance.Play("Running_Sand");
+            }
+        }
+        else
+        {
+            AudioManager.Instance.Stop("Walking_Sand");
+            AudioManager.Instance.Stop("Running_Sand");
+            DirtWalking = false;
+            DirtRunning = false;
+        }
+
         if (Time.time <= 1)
         {
             playerSpeed = transform.position.z;
@@ -184,10 +225,12 @@ public class PlayerController : MonoBehaviour {
         int layermask = 1 << 13;
         layermask = ~layermask;
         GameObject lastConstructionSite = null;
+        hittingObject = null;
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 5, Color.red);
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out collisionHit, 5f, layermask))
         {
-            MainUIManager.Instance.ToggleInteractionText(false);
+            hittingObject = collisionHit.transform.gameObject;
+            //MainUIManager.Instance.ToggleInteractionText(false);
             if (collisionHit.transform.gameObject.layer == 12)
             {
                 if (!MainUIManager.Instance.constructionPanel.activeSelf || collisionHit.transform.gameObject != lastConstructionSite)
@@ -245,6 +288,22 @@ public class PlayerController : MonoBehaviour {
                     MainUIManager.Instance.ToggleInteractionText(false);
                 }
             }
+            else if (collisionHit.transform.tag == "AirlockPanel")
+            {
+                Debug.Log("Hitting an AirlockPanel");
+                if (input.interact && !playerTasks.isCarryingObject)
+                {
+                    AudioManager.Instance.Play("Airlock");
+                    playerTasks.UseAirlockPanel();
+                    MainUIManager.Instance.ToggleInteractionText(false);
+                }
+                else
+                {
+                    Debug.Log("Looking at AirlockPanel");
+                    MainUIManager.Instance.SetInteractionText("Press 'F' to use the 'Airlock'");
+                    MainUIManager.Instance.ToggleInteractionText(true);
+                }
+            }
             else if (collisionHit.transform.tag == "Metal Ore")
             {
                 if (!playerTasks.isCarryingObject && indexTool == 1)
@@ -274,6 +333,7 @@ public class PlayerController : MonoBehaviour {
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
+                            AudioManager.Instance.Play("Throw_Seeds");
                             plantController.GrowPlants();
                         }
                     }
@@ -385,6 +445,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         collisionHit.transform.GetComponent<FoodProcessor>().PrepareMeal();
                         playerStats.Hunger += 50;
+                        MainUIManager.Instance.UpdateStatsPanel();
                     }
                 }
                 else
@@ -402,6 +463,7 @@ public class PlayerController : MonoBehaviour {
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
+                            AudioManager.Instance.Play("AddToStorage");
                             ResourceManager.Instance.MetalBox.Remove(playerTasks.grabbedObject.transform);
                             Destroy(playerTasks.grabbedObject);
                             playerTasks.isCarryingObject = false;
@@ -440,6 +502,7 @@ public class PlayerController : MonoBehaviour {
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
+                            AudioManager.Instance.Play("AddToStorage");
                             ResourceManager.Instance.MetalOreBox.Remove(playerTasks.grabbedObject.transform);
                             Destroy(playerTasks.grabbedObject);
                             playerTasks.isCarryingObject = false;
@@ -478,6 +541,7 @@ public class PlayerController : MonoBehaviour {
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
+                            AudioManager.Instance.Play("AddToStorage");
                             ResourceManager.Instance.RawFoodBox.Remove(playerTasks.grabbedObject.transform);
                             Destroy(playerTasks.grabbedObject);
                             playerTasks.isCarryingObject = false;
@@ -516,6 +580,7 @@ public class PlayerController : MonoBehaviour {
                         MainUIManager.Instance.ToggleInteractionText(true);
                         if (input.interact)
                         {
+                            AudioManager.Instance.Play("AddToStorage");
                             ResourceManager.Instance.BioPlasticBox.Remove(playerTasks.grabbedObject.transform);
                             Destroy(playerTasks.grabbedObject);
                             playerTasks.isCarryingObject = false;
@@ -573,24 +638,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Enabling building...");
                 }
             }
-            else if (collisionHit.transform.tag == "AirlockPanel")
-            {
-                if (input.interact && !playerTasks.isCarryingObject)
-                {
-                    playerTasks.UseAirlockPanel();
-                    MainUIManager.Instance.ToggleInteractionText(false);
-                }
-                else
-                {
-                    MainUIManager.Instance.SetInteractionText("Press 'F' to use the 'Airlock'");
-                    MainUIManager.Instance.ToggleInteractionText(true);
-                }
-                
-            }
-            else
-            {
-                MainUIManager.Instance.ToggleInteractionText(false);
-            }
+            
         }
         else
         {
@@ -660,6 +708,7 @@ public class PlayerController : MonoBehaviour {
     private void ToggleFlashlight()
     {
         flashlight.SetActive(!flashlight.activeSelf);
+        AudioManager.Instance.Play("Flashlight");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -699,7 +748,9 @@ public class PlayerController : MonoBehaviour {
     public IEnumerator JumpTimeOut()
     {
         allowJump = false;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.7f);
+        AudioManager.Instance.Play("Jump_Sand");
+        yield return new WaitForSeconds(0.5f);
         allowJump = true;
     }
 }

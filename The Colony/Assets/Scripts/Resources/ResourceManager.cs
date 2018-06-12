@@ -240,6 +240,7 @@ public class ResourceManager : MonoBehaviour {
     public void AddMealToList()
     {
         numMeals++;
+        Debug.Log("numMeals = " + numMeals.ToString());
         MainUIManager.Instance.UpdateResourcePanel(numMetalBoxes, numMetalOreBoxes, numBioplasticBoxes, numRawFoodBoxes, numMeals, 0);
     }
 	

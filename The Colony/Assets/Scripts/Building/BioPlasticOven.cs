@@ -14,6 +14,8 @@ public class BioPlasticOven : MonoBehaviour {
     public Color RawFoodColor;
     public Color BioPlasticColor;
 
+    public AudioSource ovenSound;
+
     public void StartOven()
     {
         ovenIsBaking = true;
@@ -27,6 +29,8 @@ public class BioPlasticOven : MonoBehaviour {
         RawFoodResourceBox.SetActive(true);
         yield return new WaitForSeconds(0.5f);
 
+        ovenSound.Play();
+
         // Slowly Lerp Raw Food color to BioPlastic color
         currentBakeTime = 0;
         while (currentBakeTime < bakeTime)
@@ -35,6 +39,8 @@ public class BioPlasticOven : MonoBehaviour {
             currentBakeTime += Time.deltaTime;
             yield return null;
         }
+
+        ovenSound.Stop();
 
         // Oven ready
         ovenIsBaking = false;

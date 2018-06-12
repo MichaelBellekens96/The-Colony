@@ -38,6 +38,7 @@ public class InputManager : MonoBehaviour {
 
     public PlayerController playerController;
     public TerrainManager terrainManager;
+    
 
     // Update is called once per frame
     void Update () {
@@ -76,6 +77,8 @@ public class InputManager : MonoBehaviour {
         if (tool_3) playerController.ChangeTool(3);
         if (buildMenu) MainUIManager.Instance.ToggleBuildMenu();
         if (statsMenu) MainUIManager.Instance.ToggleStatsMenu();
+        if (cancel) MainUIManager.Instance.TogglePauseScreen();
+
 
         if (Input.GetKeyDown(KeyCode.O)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.BioPlastic, playerController.transform.position, transform.rotation);
         if (Input.GetKeyDown(KeyCode.P)) ResourceManager.Instance.CreateResourceBox(ResourceTypes.Metal, playerController.transform.position, transform.rotation);

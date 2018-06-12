@@ -254,6 +254,8 @@ public class BaseStatsMenu : MonoBehaviour {
             BaseManager.Instance.EnableBuilding(buildingHit);
             StartCoroutine(ReDrawSilhouettes(heatMap));
 
+            AudioManager.Instance.Play("Enable_Building");
+
             BuildingController buildingController = buildingHit.GetComponent<BuildingController>();
 
             buildingName.text = "Name: " + buildingController.buildingData.buildingName;
@@ -270,6 +272,8 @@ public class BaseStatsMenu : MonoBehaviour {
         {
             BaseManager.Instance.DisableBuilding(buildingHit);
             StartCoroutine(ReDrawSilhouettes(heatMap));
+
+            AudioManager.Instance.Play("Disable_Building");
 
             BuildingController buildingController = buildingHit.GetComponent<BuildingController>();
 
