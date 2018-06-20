@@ -103,10 +103,10 @@ public class BaseStatsMenu : MonoBehaviour {
 
     private void UpdateBaseUtilitiesUI()
     {
-        basePowerProd.text = "Total Power Production: " + BaseManager.Instance.totalPowerProduction;
-        basePowerCons.text = "Total Power Consumption: " + BaseManager.Instance.totalPowerConsumption;
-        baseWaterProd.text = "Total Water Production: " + BaseManager.Instance.totalWaterProduction;
-        baseWaterCons.text = "Total Water Consumption: " + BaseManager.Instance.totalWaterConsumption;
+        basePowerProd.text = "Total Power Production: " + BaseManager.Instance.totalPowerProduction + " kWh";
+        basePowerCons.text = "Total Power Consumption: " + BaseManager.Instance.totalPowerConsumption + " kWh";
+        baseWaterProd.text = "Total Water Production: " + BaseManager.Instance.totalWaterProduction + " liter/sec";
+        baseWaterCons.text = "Total Water Consumption: " + BaseManager.Instance.totalWaterConsumption + " liter/sec";
     }
 
     private void GenerateSilhouettes()

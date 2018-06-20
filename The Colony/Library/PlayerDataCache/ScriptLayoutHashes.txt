@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-E:/My Projects/The Colony/Builds/EarlyBeta_v2/EarlyBeta_v2.exe
+E:/My Projects/The Colony/Builds/ShowCaseBuild/ShowCaseBuild.exe
 SceneListBegin?
 Assets/Scenes/MainMenu.unity
 Assets/Scenes/MainLevel.unity
@@ -161,6 +161,7 @@ c56bd9e2febc3dd1d6f5d132a4d10628 Assembly-CSharp.dll:.PlayerStats
 50a0fa002cfc67638c87a901e46b763e Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_B
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Airlock
 18af2d2662e7523917d6194a3a403117 Assembly-CSharp.dll:.BuildingPlacement
+8bc84dee72d3463c4276d002560a02b7 Assembly-CSharp.dll:.Kitchen
 020550babdb991365f61c5bffe1f4f52 Assembly-CSharp.dll:TMPro.Examples.Benchmark03
 b9332c0eee630779376843b5343eb250 Assembly-CSharp.dll:TMPro.Examples.TMP_TextInfoDebugTool
 b7536247a550bc1596505b7f345c8adf Assembly-CSharp.dll:.GunAim
@@ -286,4 +287,3 @@ a69b3ee0402770d02d1c122324e4b00e Assembly-CSharp.dll:TMPro.Examples.SkewTextExam
 12545b0ee69c092c8e550360e9e23b5a Assembly-CSharp.dll:.PlantController
 34e025057ef78b1bf238460cdf6583a3 Assembly-CSharp.dll:TMPro.Examples.ObjectSpin
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.SimpleScript
-8bc84dee72d3463c4276d002560a02b7 Assembly-CSharp.dll:.Kitchen

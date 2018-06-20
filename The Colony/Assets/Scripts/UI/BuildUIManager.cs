@@ -81,13 +81,13 @@ public class BuildUIManager : MonoBehaviour {
         }
         if (data.utilityBuilding)
         {
-            powerConsProd.text = "Power Production: " + data.powerProd.ToString();
-            waterConsProd.text = "Water Prodcution: " + data.waterProd.ToString();
+            powerConsProd.text = "Power Production: " + data.powerProd.ToString() + " kWh";
+            waterConsProd.text = "Water Prodcution: " + data.waterProd.ToString() + " liter/sec";
         }
         else
         {
-            powerConsProd.text = "Power Consumption: " + data.powerCons.ToString();
-            waterConsProd.text = "Water Consumption: " + data.waterCons.ToString();
+            powerConsProd.text = "Power Consumption: " + data.powerCons.ToString() + " kWh";
+            waterConsProd.text = "Water Consumption: " + data.waterCons.ToString() + " liter/sec";
         }
     }
 
